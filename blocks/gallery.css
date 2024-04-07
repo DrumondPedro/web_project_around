@@ -54,8 +54,8 @@
   opacity: 50%;
 }
 
-@media screen and (max-width: 1060px) {
-  .gallery__cards {
-    grid-template-columns: repeat(2, 1fr);
+@media screen and (max-width: 440px) {
+  .gallery {
+    padding: 0 19px;
   }
 }
