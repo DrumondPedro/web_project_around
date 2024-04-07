@@ -47,3 +47,8 @@
   width: 21px;
   height: 19px;
 }
+
+.gallery__card-like-button:hover {
+  cursor: pointer;
+  opacity: 50%;
+}

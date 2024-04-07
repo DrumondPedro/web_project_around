@@ -55,6 +55,11 @@
   margin: 15px 0 0;
 }
 
+.profile__edit-button:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
+
 .profile__edit-button-image {
   width: 10px;
   height: 10px;
@@ -69,6 +74,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.profile__add-button:hover {
+  cursor: pointer;
+  opacity: 60%;
 }
 
 .profile__add-button-image {
