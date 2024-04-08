@@ -13,7 +13,7 @@
       content="fotos, U.S., rede social, viagem, paisagens"
     />
     <link rel="stylesheet" href="./pages/index.css" />
-    <link rel="icon" href="favicon.ico" />
+    <link rel="icon" href="./favicon.png" />
     <title>Around the U.S.</title>
   </head>
   <body class="body">
@@ -54,37 +54,6 @@
               class="profile__add-button-image"
             />
           </button>
-          <div class="editor profile__editor">
-            <div class="editor__content">
-              <button class="editor__close-button">
-                <img
-                  src="./images/editor/editor_close_Icon.svg"
-                  alt="Ícone de um x"
-                  class="editor__close-image"
-                />
-              </button>
-              <h2 class="editor__title">Editar perfil</h2>
-              <form class="form editor__form">
-                <fieldset class="form__fieldset">
-                  <input
-                    type="text"
-                    class="form__input"
-                    id="name"
-                    placeholder="Nome"
-                  />
-                  <input
-                    type="text"
-                    class="form__input"
-                    id="about"
-                    placeholder="Sobre mim"
-                  />
-                </fieldset>
-                <button type="submit" class="form__submit-button">
-                  Salvar
-                </button>
-              </form>
-            </div>
-          </div>
         </section>
         <section class="gallery">
           <ul class="gallery__cards">
@@ -97,7 +66,7 @@
               <div class="gallery__card-information">
                 <p class="gallery__card-name">Ilha Dry Tortugas</p>
                 <img
-                  src="/images/gallery/gallery_card_like_button.svg"
+                  src="./images/gallery/gallery_card_like_button.svg"
                   alt="Ícone de um coração"
                   class="gallery__card-like-button"
                 />
@@ -112,7 +81,7 @@
               <div class="gallery__card-information">
                 <p class="gallery__card-name">Montanhas Great Smoky</p>
                 <img
-                  src="/images/gallery/gallery_card_like_button.svg"
+                  src="./images/gallery/gallery_card_like_button.svg"
                   alt="Ícone de um coração"
                   class="gallery__card-like-button"
                 />
@@ -127,7 +96,7 @@
               <div class="gallery__card-information">
                 <p class="gallery__card-name">Escadaria de Haiku</p>
                 <img
-                  src="/images/gallery/gallery_card_like_button.svg"
+                  src="./images/gallery/gallery_card_like_button.svg"
                   alt="Ícone de um coração"
                   class="gallery__card-like-button"
                 />
@@ -142,7 +111,7 @@
               <div class="gallery__card-information">
                 <p class="gallery__card-name">Horseshoe Bend</p>
                 <img
-                  src="/images/gallery/gallery_card_like_button.svg"
+                  src="./images/gallery/gallery_card_like_button.svg"
                   alt="Ícone de um coração"
                   class="gallery__card-like-button"
                 />
@@ -157,7 +126,7 @@
               <div class="gallery__card-information">
                 <p class="gallery__card-name">Lago Tahoe</p>
                 <img
-                  src="/images/gallery/gallery_card_like_button.svg"
+                  src="./images/gallery/gallery_card_like_button.svg"
                   alt="Ícone de um coração"
                   class="gallery__card-like-button"
                 />
@@ -172,7 +141,7 @@
               <div class="gallery__card-information">
                 <p class="gallery__card-name">Parque Nacional de Zion</p>
                 <img
-                  src="/images/gallery/gallery_card_like_button.svg"
+                  src="./images/gallery/gallery_card_like_button.svg"
                   alt="Ícone de um coração"
                   class="gallery__card-like-button"
                 />
@@ -184,6 +153,35 @@
       <footer class="footer">
         <p class="footer__copyright">&copy; 2024 Pedro Drumond</p>
       </footer>
+    </div>
+    <div class="editor">
+      <div class="editor__content">
+        <button class="editor__close-button">
+          <img
+            src="./images/editor/editor_close_Icon.svg"
+            alt="Ícone de um x"
+            class="editor__close-image"
+          />
+        </button>
+        <h2 class="editor__title">Editar perfil</h2>
+        <form class="form editor__form">
+          <fieldset class="form__fieldset">
+            <input
+              type="text"
+              class="form__input"
+              id="name"
+              placeholder="Nome"
+            />
+            <input
+              type="text"
+              class="form__input"
+              id="about"
+              placeholder="Sobre mim"
+            />
+          </fieldset>
+          <button type="submit" class="form__submit-button">Salvar</button>
+        </form>
+      </div>
     </div>
     <script src="./scripts/index.js"></script>
   </body>

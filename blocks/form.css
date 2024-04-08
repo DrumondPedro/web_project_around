@@ -30,3 +30,8 @@
   background-color: #000;
   margin: 48px 0 0;
 }
+
+.form__submit-button:hover {
+  cursor: pointer;
+  opacity: 80%;
+}
