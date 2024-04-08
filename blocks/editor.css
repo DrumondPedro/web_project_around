@@ -7,6 +7,10 @@
   display: none;
 }
 
+.editor_visible {
+  display: block;
+}
+
 .editor__content {
   background-color: #fff;
   max-width: 430px;
