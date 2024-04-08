@@ -35,3 +35,22 @@
   cursor: pointer;
   opacity: 80%;
 }
+
+@media screen and (max-width: 635px) {
+  .form {
+    margin: 74px 0 0;
+  }
+
+  .form__input {
+    padding: 0 0 9px;
+  }
+
+  .form__input:last-of-type {
+    margin: 30px 0 0;
+  }
+
+  .form__submit-button {
+    height: 46px;
+    margin: 46px 0 0;
+  }
+}

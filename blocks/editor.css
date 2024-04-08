@@ -4,6 +4,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
+  display: none;
 }
 
 .editor__content {
@@ -29,6 +30,11 @@
   right: -36px;
 }
 
+.editor__close-image {
+  width: 32px;
+  height: 32px;
+}
+
 .editor__close-button:hover {
   cursor: pointer;
   opacity: 60%;
@@ -38,4 +44,30 @@
   font-size: 24px;
   line-height: 29.05px;
   font-weight: 900;
+}
+
+@media screen and (max-width: 635px) {
+  .editor__content {
+    max-width: 282px;
+    max-height: 322px;
+    padding: 25px 22px;
+    margin: 123px auto 0;
+  }
+
+  .editor__close-button {
+    width: 21px;
+    height: 21px;
+    top: -57px;
+    right: 8px;
+  }
+
+  .editor__close-image {
+    width: 21px;
+    height: 21px;
+  }
+
+  .editor__title {
+    font-size: 18px;
+    line-height: 21.78px;
+  }
 }
