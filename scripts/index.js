@@ -12,14 +12,15 @@ function handleProfileFormSubmit(evt) {
   const inputAbout = formElement.querySelector(".form__input_about");
   if (editor.classList.contains("editor_visible")) {
     evt.preventDefault();
-    profileName.textContent = inputName.value;
-    profileAbout.textContent = inputAbout.value;
-    editor.classList.toggle("editor_visible");
+    if (inputName.value != "" && inputAbout.value != "") {
+      profileName.textContent = inputName.value;
+      profileAbout.textContent = inputAbout.value;
+    }
   } else {
-    editor.classList.toggle("editor_visible");
     inputName.value = profileName.textContent;
     inputAbout.value = profileAbout.textContent;
   }
+  editor.classList.toggle("editor_visible");
 }
 
 formElement.addEventListener("submit", handleProfileFormSubmit);
