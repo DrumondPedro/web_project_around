@@ -142,11 +142,6 @@
     line-height: 36px;
   }
 
-  .profile__about {
-    font-size: 18px;
-    line-height: 21.78px;
-  }
-
   .profile__edit-button {
     margin: 0;
     width: 24px;
@@ -159,6 +154,8 @@
 
   .profile__about {
     margin: 10px 0 0;
+    font-size: 18px;
+    line-height: 21.78px;
   }
 }
 
