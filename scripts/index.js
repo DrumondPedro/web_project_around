@@ -10,16 +10,15 @@ const profileAbout = document.querySelector(".profile__about");
 function handleProfileFormSubmit(evt) {
   const inputName = formElement.querySelector(".form__input_name");
   const inputAbout = formElement.querySelector(".form__input_about");
-  if (editor.classList.contains("editor_visible")) {
-    evt.preventDefault();
-    if (inputName.value != "" && inputAbout.value != "") {
-      profileName.textContent = inputName.value;
-      profileAbout.textContent = inputAbout.value;
-    }
-  } else {
-    inputName.value = profileName.textContent;
-    inputAbout.value = profileAbout.textContent;
+  evt.preventDefault();
+  if (inputName.value != "" && inputAbout.value != "") {
+    profileName.textContent = inputName.value;
+    profileAbout.textContent = inputAbout.value;
+    editor.classList.toggle("editor_visible");
+    return;
   }
+  inputName.value = profileName.textContent;
+  inputAbout.value = profileAbout.textContent;
   editor.classList.toggle("editor_visible");
 }
 
