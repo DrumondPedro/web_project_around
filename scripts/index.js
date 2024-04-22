@@ -7,6 +7,8 @@ const formElement = document.querySelector(".form");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 
+const cardElement = document.querySelector(".gallery__card");
+
 function handleProfileFormSubmit(evt) {
   const inputName = formElement.querySelector(".form__input_name");
   const inputAbout = formElement.querySelector(".form__input_about");
@@ -30,3 +32,9 @@ function closePopup() {
 }
 
 editorCloseButton.addEventListener("click", closePopup);
+
+cardElement
+  .querySelector(".gallery__card-like-button")
+  .addEventListener("click", (evt) =>
+    evt.target.classList.toggle("gallery__card-like-button-active")
+  );
