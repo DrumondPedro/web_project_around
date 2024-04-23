@@ -84,16 +84,31 @@ function createCard(card) {
   const cardElement = cardsTemplate
     .querySelector(".gallery__card")
     .cloneNode(true);
+
   const cardName = cardElement.querySelector(".gallery__card-name");
   const cardImage = cardElement.querySelector(".gallery__card-image");
-
   cardName.textContent = card.name;
   cardImage.setAttribute("src", card.link);
+  // poderia ser assim??????
+  // cardElement.querySelector(".gallery__card-name").textContent = card.name;
+  // cardElement.querySelector(".gallery__card-image").setAttribute("src", card.link);
 
   const likeButton = cardElement.querySelector(".gallery__card-like-button");
   likeButton.addEventListener("click", (evt) =>
     evt.target.classList.toggle("gallery__card-like-button-active")
   );
+
+  const deleteButton = cardElement.querySelector(
+    ".gallery__card-delete-button"
+  );
+  deleteButton.addEventListener("click", (evt) =>
+    deleteButton.closest(".gallery__card").remove()
+  );
+  // poderia ser assim?????
+  // cardElement.querySelector(".gallery__card-delete-button").addEventListener("click", (evt) => {
+  //     const cardToDelete = evt.target.closest(".gallery__card");
+  //     cardToDelete.remove();
+  //   });
 
   cardsContainer.prepend(cardElement);
 }
