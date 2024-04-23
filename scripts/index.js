@@ -100,9 +100,23 @@ function createCard(card) {
 
 initialCards.forEach((card) => createCard(card));
 
-galleryAddButton.addEventListener("click", () =>
-  galleryEditor.classList.toggle("editor_visible")
-);
+function controlGalleryForm(evt) {
+  evt.preventDefault();
+  const imputTitle = galleryFormElement.querySelector(".form__input_title");
+  const imputLink = galleryFormElement.querySelector(".form__input_link");
+  if (imputLink.value != "" && imputTitle.value != "") {
+    const newCard = { name: imputTitle.value, link: imputLink.value };
+    createCard(newCard);
+    imputTitle.value = "";
+    imputLink.value = "";
+    galleryEditor.classList.toggle("editor_visible");
+    return;
+  }
+  galleryEditor.classList.toggle("editor_visible");
+}
+
+galleryFormElement.addEventListener("submit", controlGalleryForm);
+galleryAddButton.addEventListener("click", controlGalleryForm);
 
 galleryCloseButton.addEventListener("click", () =>
   galleryEditor.classList.toggle("editor_visible")
