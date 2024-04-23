@@ -1,3 +1,5 @@
+// PROFILE VARIABLES_________________
+
 const profileEditor = document.querySelector(".editor_profile");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -8,6 +10,17 @@ const profileCloseButton = document.querySelector(
 const profileFormElement = document.querySelector(".form_profile");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
+
+// GALLERY VARIABLES________________
+
+const galleryEditor = document.querySelector(".editor_gallery");
+
+const galleryAddButton = document.querySelector(".profile__add-button");
+const galleryCloseButton = document.querySelector(
+  ".editor_gallery-close-button"
+);
+
+const galleryFormElement = document.querySelector(".form_gallery");
 
 const cardsContainer = document.querySelector(".gallery__cards");
 
@@ -38,6 +51,8 @@ const initialCards = [
   },
 ];
 
+// PROFILE _________________
+
 function handleProfileFormSubmit(evt) {
   const inputName = profileFormElement.querySelector(".form__input_name");
   const inputAbout = profileFormElement.querySelector(".form__input_about");
@@ -62,6 +77,8 @@ function closePopup() {
 
 profileCloseButton.addEventListener("click", closePopup);
 
+// GALLERY ________________
+
 function createCard(card) {
   const cardsTemplate = document.querySelector("#template-cards").content;
   const cardElement = cardsTemplate
@@ -82,3 +99,11 @@ function createCard(card) {
 }
 
 initialCards.forEach((card) => createCard(card));
+
+galleryAddButton.addEventListener("click", () =>
+  galleryEditor.classList.toggle("editor_visible")
+);
+
+galleryCloseButton.addEventListener("click", () =>
+  galleryEditor.classList.toggle("editor_visible")
+);
