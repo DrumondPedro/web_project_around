@@ -1,9 +1,11 @@
-const editor = document.querySelector(".editor");
+const profileEditor = document.querySelector(".editor_profile");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
-const editorCloseButton = document.querySelector(".editor__close-button");
+const profileCloseButton = document.querySelector(
+  ".editor_profile-close-button"
+);
 
-const formElement = document.querySelector(".form");
+const profileFormElement = document.querySelector(".form_profile");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 
@@ -37,28 +39,28 @@ const initialCards = [
 ];
 
 function handleProfileFormSubmit(evt) {
-  const inputName = formElement.querySelector(".form__input_name");
-  const inputAbout = formElement.querySelector(".form__input_about");
+  const inputName = profileFormElement.querySelector(".form__input_name");
+  const inputAbout = profileFormElement.querySelector(".form__input_about");
   evt.preventDefault();
   if (inputName.value != "" && inputAbout.value != "") {
     profileName.textContent = inputName.value;
     profileAbout.textContent = inputAbout.value;
-    editor.classList.toggle("editor_visible");
+    profileEditor.classList.toggle("editor_visible");
     return;
   }
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
-  editor.classList.toggle("editor_visible");
+  profileEditor.classList.toggle("editor_visible");
 }
 
-formElement.addEventListener("submit", handleProfileFormSubmit);
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 profileEditButton.addEventListener("click", handleProfileFormSubmit);
 
 function closePopup() {
-  editor.classList.toggle("editor_visible");
+  profileEditor.classList.toggle("editor_visible");
 }
 
-editorCloseButton.addEventListener("click", closePopup);
+profileCloseButton.addEventListener("click", closePopup);
 
 function createCard(card) {
   const cardsTemplate = document.querySelector("#template-cards").content;
