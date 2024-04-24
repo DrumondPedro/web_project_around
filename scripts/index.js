@@ -1,5 +1,3 @@
-// PROFILE VARIABLES_________________
-
 const profileEditor = document.querySelector(".editor_profile");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -10,8 +8,6 @@ const profileCloseButton = document.querySelector(
 const profileFormElement = document.querySelector(".form_profile");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
-
-// GALLERY VARIABLES________________
 
 const galleryEditor = document.querySelector(".editor_gallery");
 
@@ -51,7 +47,7 @@ const initialCards = [
   },
 ];
 
-// PROFILE _________________
+const viewerPopup = document.querySelector(".viewer");
 
 function handleProfileFormSubmit(evt) {
   const inputName = profileFormElement.querySelector(".form__input_name");
@@ -77,8 +73,6 @@ function closePopup() {
 
 profileCloseButton.addEventListener("click", closePopup);
 
-// GALLERY ________________
-
 function createCard(card) {
   const cardsTemplate = document.querySelector("#template-cards").content;
   const cardElement = cardsTemplate
@@ -89,9 +83,6 @@ function createCard(card) {
   const cardImage = cardElement.querySelector(".gallery__card-image");
   cardName.textContent = card.name;
   cardImage.setAttribute("src", card.link);
-  // poderia ser assim??????
-  // cardElement.querySelector(".gallery__card-name").textContent = card.name;
-  // cardElement.querySelector(".gallery__card-image").setAttribute("src", card.link);
 
   const likeButton = cardElement.querySelector(".gallery__card-like-button");
   likeButton.addEventListener("click", (evt) =>
@@ -101,14 +92,21 @@ function createCard(card) {
   const deleteButton = cardElement.querySelector(
     ".gallery__card-delete-button"
   );
-  deleteButton.addEventListener("click", (evt) =>
+  deleteButton.addEventListener("click", () =>
     deleteButton.closest(".gallery__card").remove()
   );
-  // poderia ser assim?????
-  // cardElement.querySelector(".gallery__card-delete-button").addEventListener("click", (evt) => {
-  //     const cardToDelete = evt.target.closest(".gallery__card");
-  //     cardToDelete.remove();
-  //   });
+
+  const galleryCardImage = cardElement.querySelector(".gallery__card-image");
+  const viwerImage = viewerPopup.querySelector(".viewer__image");
+
+  const galleryCardName = cardElement.querySelector(".gallery__card-name");
+  const viewerTitle = viewerPopup.querySelector(".viewer__title");
+
+  galleryCardImage.addEventListener("click", () => {
+    viewerPopup.classList.toggle("viewer_visible");
+    viwerImage.setAttribute("src", galleryCardImage.getAttribute("src"));
+    viewerTitle.textContent = galleryCardName.textContent;
+  });
 
   cardsContainer.prepend(cardElement);
 }
@@ -135,4 +133,9 @@ galleryAddButton.addEventListener("click", controlGalleryForm);
 
 galleryCloseButton.addEventListener("click", () =>
   galleryEditor.classList.toggle("editor_visible")
+);
+
+const viewerCloseButton = viewerPopup.querySelector(".viewer__close-button");
+viewerCloseButton.addEventListener("click", () =>
+  viewerPopup.classList.toggle("viewer_visible")
 );
