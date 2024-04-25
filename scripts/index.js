@@ -2,7 +2,7 @@ const profileEditor = document.querySelector(".editor_profile");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileCloseButton = document.querySelector(
-  ".editor_profile-close-button"
+  ".editor__profile-close-button"
 );
 
 const profileFormElement = document.querySelector(".form_profile");
@@ -13,7 +13,7 @@ const galleryEditor = document.querySelector(".editor_gallery");
 
 const galleryAddButton = document.querySelector(".profile__add-button");
 const galleryCloseButton = document.querySelector(
-  ".editor_gallery-close-button"
+  ".editor__gallery-close-button"
 );
 
 const galleryFormElement = document.querySelector(".form_gallery");
