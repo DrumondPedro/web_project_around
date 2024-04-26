@@ -53,7 +53,7 @@ function handleProfileFormSubmit(evt) {
   const inputName = profileFormElement.querySelector(".form__input_name");
   const inputAbout = profileFormElement.querySelector(".form__input_about");
   evt.preventDefault();
-  if (inputName.value != "" && inputAbout.value != "") {
+  if (inputName.value.trim() != "" && inputAbout.value.trim() != "") {
     profileName.textContent = inputName.value;
     profileAbout.textContent = inputAbout.value;
     profileEditor.classList.toggle("editor_visible");
@@ -81,8 +81,10 @@ function createCard(card) {
 
   const cardName = cardElement.querySelector(".gallery__card-name");
   const cardImage = cardElement.querySelector(".gallery__card-image");
+
   cardName.textContent = card.name;
   cardImage.setAttribute("src", card.link);
+  cardImage.setAttribute("alt", card.name);
 
   const likeButton = cardElement.querySelector(".gallery__card-like-button");
   likeButton.addEventListener("click", (evt) =>
@@ -96,16 +98,14 @@ function createCard(card) {
     deleteButton.closest(".gallery__card").remove()
   );
 
-  const galleryCardImage = cardElement.querySelector(".gallery__card-image");
   const viwerImage = viewerPopup.querySelector(".viewer__image");
-
-  const galleryCardName = cardElement.querySelector(".gallery__card-name");
   const viewerTitle = viewerPopup.querySelector(".viewer__title");
 
-  galleryCardImage.addEventListener("click", () => {
+  cardImage.addEventListener("click", () => {
     viewerPopup.classList.toggle("viewer_visible");
-    viwerImage.setAttribute("src", galleryCardImage.getAttribute("src"));
-    viewerTitle.textContent = galleryCardName.textContent;
+    viwerImage.setAttribute("src", card.link);
+    viwerImage.setAttribute("alt", card.name);
+    viewerTitle.textContent = card.name;
   });
 
   cardsContainer.prepend(cardElement);
@@ -115,16 +115,18 @@ initialCards.forEach((card) => createCard(card));
 
 function controlGalleryForm(evt) {
   evt.preventDefault();
-  const imputTitle = galleryFormElement.querySelector(".form__input_title");
-  const imputLink = galleryFormElement.querySelector(".form__input_link");
-  if (imputLink.value != "" && imputTitle.value != "") {
-    const newCard = { name: imputTitle.value, link: imputLink.value };
+  const inputTitle = galleryFormElement.querySelector(".form__input_title");
+  const inputLink = galleryFormElement.querySelector(".form__input_link");
+  if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
+    const newCard = { name: inputTitle.value, link: inputLink.value };
     createCard(newCard);
-    imputTitle.value = "";
-    imputLink.value = "";
+    inputTitle.value = "";
+    inputLink.value = "";
     galleryEditor.classList.toggle("editor_visible");
     return;
   }
+  inputTitle.value = "";
+  inputLink.value = "";
   galleryEditor.classList.toggle("editor_visible");
 }
 
