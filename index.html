@@ -74,19 +74,25 @@
         </button>
         <h2 class="editor__title">Editar perfil</h2>
         <form class="form form_profile editor__form">
-          <fieldset class="form__fieldset">
-            <input
-              type="text"
-              class="form__input form__input_name"
-              id="name"
-              placeholder="Nome"
-            />
-            <input
-              type="text"
-              class="form__input form__input_about"
-              id="about"
-              placeholder="Sobre mim"
-            />
+          <fieldset class="form__set">
+            <label class="form__field">
+              <input
+                type="text"
+                class="form__input form__input_name"
+                id="name-input"
+                placeholder="Nome"
+              />
+              <span class="form__input-error name-input-error"></span>
+            </label>
+            <label class="form__field">
+              <input
+                type="text"
+                class="form__input form__input_about"
+                id="about-input"
+                placeholder="Sobre mim"
+              />
+              <span class="form__input-error about-input-error"></span>
+            </label>
           </fieldset>
           <button type="submit" class="form__submit-button">Salvar</button>
         </form>
@@ -103,19 +109,25 @@
         </button>
         <h2 class="editor__title">Novo local</h2>
         <form class="form form_gallery editor__form">
-          <fieldset class="form__fieldset">
-            <input
-              type="text"
-              class="form__input form__input_title"
-              id="title"
-              placeholder="Título"
-            />
-            <input
-              type="text"
-              class="form__input form__input_link"
-              id="link"
-              placeholder="Link de imagem"
-            />
+          <fieldset class="form__set">
+            <label class="form__field">
+              <input
+                type="text"
+                class="form__input form__input_title"
+                id="title-input"
+                placeholder="Título"
+              />
+              <span class="form__input-error title-input-error"></span>
+            </label>
+            <label class="form__field">
+              <input
+                type="text"
+                class="form__input form__input_link"
+                id="link-input"
+                placeholder="Link de imagem"
+              />
+              <span class="form__input-error link-input-error"></span>
+            </label>
           </fieldset>
           <button type="submit" class="form__submit-button">Criar</button>
         </form>
