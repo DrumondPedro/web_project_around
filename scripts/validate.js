@@ -49,17 +49,10 @@ const setEventListeners = (parameters) => {
   const submitButtonElement = parameters.formElement.querySelector(
     parameters.submitButtonSelector
   );
-  // const closeButtonElement = editor.querySelector(parameters.closeButtonSelector)
 
   toggleButtonState(
     Object.assign(parameters, { inputList, submitButtonElement })
   );
-
-  // 1 adicionar ouvinte que chama uma função que quando o botão de fechar for acionado
-  // remove as classses de erro
-  // parameters.formElement.addEventListener("submit", () => {
-
-  // criar um ouvinte que quando o editor do perfil abrir a priemira vez ativar o botão
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
@@ -79,6 +72,10 @@ const enableValidation = (parameters) => {
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      const submitButtonElement = formElement.querySelector(
+        parameters.submitButtonSelector
+      );
+      submitButtonElement.classList.add(parameters.inactiveButtonClass);
     });
     setEventListeners(Object.assign({ formElement }, parameters));
   });
@@ -88,8 +85,24 @@ enableValidation({
   formSelector: ".editor__form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit-button",
-  closeButtonSelector: ".editor__close-button",
   inactiveButtonClass: "form__submit-button-inactive",
   inputErrorClass: "form__input_type-error",
   errorClass: "form__error_visible",
 });
+
+const resetValidation = (evt) => {
+  const formElement = evt.target.closest(".editor");
+  const inputList = formElement.querySelectorAll(".form__input");
+
+  inputList.forEach((inputElement) => {
+    hideError({
+      formElement,
+      inputElement,
+      inputErrorClass: "form__input_type-error",
+      errorClass: "form__error_visible",
+    });
+  });
+};
+
+profileCloseButton.addEventListener("click", resetValidation);
+galleryCloseButton.addEventListener("click", resetValidation);
