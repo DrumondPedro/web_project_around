@@ -26,20 +26,20 @@
   line-height: 16.94px;
 }
 
-.form__input-type-error {
+.form__input_type-error {
   border-bottom: solid 1px #f00;
 }
 
-.form__input-error {
+.form__error {
   font-size: 12px;
   line-height: 14.52px;
   color: #f00;
   position: absolute;
-  top: 33px;
+  top: 28px;
   display: none;
 }
 
-.form__input-error-visible {
+.form__error_visible {
   display: block;
 }
 
