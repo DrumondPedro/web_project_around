@@ -1,13 +1,16 @@
 const profileEditor = document.querySelector(".editor_profile");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
-const profileCloseButton = document.querySelector(
+const profileCloseButton = profileEditor.querySelector(
   ".editor__profile-close-button"
 );
 
 const profileFormElement = document.querySelector(".form_profile");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
+
+const inputName = profileFormElement.querySelector(".form__input_name");
+const inputAbout = profileFormElement.querySelector(".form__input_about");
 
 const galleryEditor = document.querySelector(".editor_gallery");
 
@@ -17,6 +20,9 @@ const galleryCloseButton = document.querySelector(
 );
 
 const galleryFormElement = document.querySelector(".form_gallery");
+
+const inputTitle = galleryFormElement.querySelector(".form__input_title");
+const inputLink = galleryFormElement.querySelector(".form__input_link");
 
 const cardsContainer = document.querySelector(".gallery__cards");
 
@@ -49,9 +55,13 @@ const initialCards = [
 
 const viewerPopup = document.querySelector(".viewer");
 
+function closePopupProfile() {
+  inputName.value = profileName.textContent;
+  inputAbout.value = profileAbout.textContent;
+  profileEditor.classList.remove("editor_visible");
+}
+
 function handleProfileFormSubmit(evt) {
-  const inputName = profileFormElement.querySelector(".form__input_name");
-  const inputAbout = profileFormElement.querySelector(".form__input_about");
   evt.preventDefault();
   if (inputName.value.trim() != "" && inputAbout.value.trim() != "") {
     profileName.textContent = inputName.value;
@@ -59,19 +69,23 @@ function handleProfileFormSubmit(evt) {
     profileEditor.classList.toggle("editor_visible");
     return;
   }
-  inputName.value = profileName.textContent;
-  inputAbout.value = profileAbout.textContent;
-  profileEditor.classList.toggle("editor_visible");
+  closePopupProfile();
 }
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 profileEditButton.addEventListener("click", handleProfileFormSubmit);
 
-function closePopup() {
-  profileEditor.classList.toggle("editor_visible");
-}
+profileCloseButton.addEventListener("click", closePopupProfile);
 
-profileCloseButton.addEventListener("click", closePopup);
+profileEditor.addEventListener("click", (evt) => {
+  evt.target.classList.remove("editor_visible");
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closePopupProfile();
+  }
+});
 
 function createCard(card) {
   const cardsTemplate = document.querySelector("#template-cards").content;
@@ -113,31 +127,56 @@ function createCard(card) {
 
 initialCards.forEach((card) => createCard(card));
 
+function closePopupGallery() {
+  inputTitle.value = "";
+  inputLink.value = "";
+  galleryEditor.classList.remove("editor_visible");
+}
+
 function controlGalleryForm(evt) {
   evt.preventDefault();
-  const inputTitle = galleryFormElement.querySelector(".form__input_title");
-  const inputLink = galleryFormElement.querySelector(".form__input_link");
   if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
     const newCard = { name: inputTitle.value, link: inputLink.value };
     createCard(newCard);
-    inputTitle.value = "";
-    inputLink.value = "";
-    galleryEditor.classList.toggle("editor_visible");
+    closePopupGallery();
     return;
   }
   inputTitle.value = "";
   inputLink.value = "";
-  galleryEditor.classList.toggle("editor_visible");
+  galleryEditor.classList.add("editor_visible");
 }
 
 galleryFormElement.addEventListener("submit", controlGalleryForm);
 galleryAddButton.addEventListener("click", controlGalleryForm);
 
-galleryCloseButton.addEventListener("click", () =>
-  galleryEditor.classList.toggle("editor_visible")
-);
+galleryCloseButton.addEventListener("click", () => {
+  closePopupGallery();
+});
+
+galleryEditor.addEventListener("click", (evt) => {
+  evt.target.classList.remove("editor_visible");
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closePopupGallery();
+  }
+});
 
 const viewerCloseButton = viewerPopup.querySelector(".viewer__close-button");
-viewerCloseButton.addEventListener("click", () =>
-  viewerPopup.classList.toggle("viewer_visible")
-);
+
+function closeViewer() {
+  viewerPopup.classList.remove("viewer_visible");
+}
+
+viewerCloseButton.addEventListener("click", () => closeViewer());
+
+viewerPopup.addEventListener("click", (evt) => {
+  evt.target.classList.remove("viewer_visible");
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closeViewer();
+  }
+});
