@@ -128,8 +128,7 @@ function createCard(card) {
 initialCards.forEach((card) => createCard(card));
 
 function closePopupGallery() {
-  inputTitle.value = "";
-  inputLink.value = "";
+  galleryFormElement.reset();
   galleryEditor.classList.remove("editor_visible");
 }
 
@@ -141,8 +140,7 @@ function controlGalleryForm(evt) {
     closePopupGallery();
     return;
   }
-  inputTitle.value = "";
-  inputLink.value = "";
+  galleryFormElement.reset();
   galleryEditor.classList.add("editor_visible");
 }
 
