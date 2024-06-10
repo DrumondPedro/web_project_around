@@ -8,12 +8,13 @@
 }
 
 .viewer_visible {
-  display: block;
+  display: flex;
+  align-items: center;
 }
 
 .viewer__content {
   max-width: fit-content;
-  margin: 90px auto 0;
+  margin: 0 auto;
   position: relative;
 }
 
