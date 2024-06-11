@@ -77,17 +77,22 @@ function handleProfileFormSubmit(evt) {
   if (inputName.value.trim() != "" && inputAbout.value.trim() != "") {
     profileName.textContent = inputName.value;
     profileAbout.textContent = inputAbout.value;
-    profileEditor.classList.toggle("editor_visible");
-    return;
+    closePopup(profileEditor);
   }
+}
+
+function handleProfilePopupOpening() {
   // setInputProfileContent();
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
-  closePopup(profileEditor);
+  profileEditor.classList.add("editor_visible");
 }
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
-profileEditButton.addEventListener("click", handleProfileFormSubmit);
+
+profileEditButton.addEventListener("click", () => {
+  handleProfilePopupOpening();
+});
 
 profileCloseButton.addEventListener("click", () => {
   closePopup(profileEditor);
