@@ -55,11 +55,22 @@ const initialCards = [
 
 const viewerPopup = document.querySelector(".viewer");
 
-function closePopupProfile() {
-  inputName.value = profileName.textContent;
-  inputAbout.value = profileAbout.textContent;
-  profileEditor.classList.remove("editor_visible");
+function closePopup(popupElement) {
+  popupElement.classList.remove("editor_visible");
 }
+
+// ------- PROFILE ---------
+
+// function setInputProfileContent() {
+//   inputName.value = profileName.textContent;
+//   inputAbout.value = profileAbout.textContent;
+// }
+
+// function closePopupProfile() {
+//   inputName.value = profileName.textContent;
+//   inputAbout.value = profileAbout.textContent;
+//   profileEditor.classList.remove("editor_visible");
+// }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -69,13 +80,18 @@ function handleProfileFormSubmit(evt) {
     profileEditor.classList.toggle("editor_visible");
     return;
   }
-  closePopupProfile();
+  // setInputProfileContent();
+  inputName.value = profileName.textContent;
+  inputAbout.value = profileAbout.textContent;
+  closePopup(profileEditor);
 }
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 profileEditButton.addEventListener("click", handleProfileFormSubmit);
 
-profileCloseButton.addEventListener("click", closePopupProfile);
+profileCloseButton.addEventListener("click", () => {
+  closePopup(profileEditor);
+});
 
 profileEditor.addEventListener("click", (evt) => {
   evt.target.classList.remove("editor_visible");
@@ -83,9 +99,11 @@ profileEditor.addEventListener("click", (evt) => {
 
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    closePopupProfile();
+    closePopup(profileEditor);
   }
 });
+
+// ------- CARD ---------
 
 function createCard(card) {
   const cardsTemplate = document.querySelector("#template-cards").content;
@@ -127,9 +145,16 @@ function createCard(card) {
 
 initialCards.forEach((card) => createCard(card));
 
-function closePopupGallery() {
+// ------- GALERY ---------
+
+// function closePopupGallery() {
+//   galleryFormElement.reset();
+//   galleryEditor.classList.remove("editor_visible");
+// }
+
+function resetFormGallery() {
+  // é a melhor escolha?, ou só coloca a linha no código mesmo?
   galleryFormElement.reset();
-  galleryEditor.classList.remove("editor_visible");
 }
 
 function controlGalleryForm(evt) {
@@ -137,10 +162,11 @@ function controlGalleryForm(evt) {
   if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
     const newCard = { name: inputTitle.value, link: inputLink.value };
     createCard(newCard);
-    closePopupGallery();
+    resetFormGallery();
+    closePopup(galleryEditor);
     return;
   }
-  galleryFormElement.reset();
+  resetFormGallery();
   galleryEditor.classList.add("editor_visible");
 }
 
@@ -148,7 +174,8 @@ galleryFormElement.addEventListener("submit", controlGalleryForm);
 galleryAddButton.addEventListener("click", controlGalleryForm);
 
 galleryCloseButton.addEventListener("click", () => {
-  closePopupGallery();
+  resetFormGallery();
+  closePopup(galleryEditor);
 });
 
 galleryEditor.addEventListener("click", (evt) => {
@@ -157,9 +184,12 @@ galleryEditor.addEventListener("click", (evt) => {
 
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    closePopupGallery();
+    resetFormGallery();
+    closePopup(galleryEditor);
   }
 });
+
+// ------- VIEWER ---------
 
 const viewerCloseButton = viewerPopup.querySelector(".viewer__close-button");
 
