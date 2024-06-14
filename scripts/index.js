@@ -1,3 +1,5 @@
+// import { resetValidation } from "./validate";
+
 const profileEditor = document.querySelector(".editor_profile");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -55,37 +57,40 @@ const initialCards = [
 
 const viewerPopup = document.querySelector(".viewer");
 
-function closePopup(popupElement) {
-  popupElement.classList.remove("editor_visible");
+function closePopup(popupElement, openPopupClass) {
+  popupElement.classList.remove(openPopupClass);
+  document.removeEventListener("keydown", closeWithEsc);
+}
+
+function closeWithEsc(evt, popupElement, openPopupClass) {
+  if (evt.key === "Escape") {
+    closePopup(popupElement, openPopupClass);
+    document.removeEventListener("keydown", closeWithEsc);
+  }
+}
+
+function resetForms(formElement) {
+  formElement.reset();
 }
 
 // ------- PROFILE ---------
-
-// function setInputProfileContent() {
-//   inputName.value = profileName.textContent;
-//   inputAbout.value = profileAbout.textContent;
-// }
-
-// function closePopupProfile() {
-//   inputName.value = profileName.textContent;
-//   inputAbout.value = profileAbout.textContent;
-//   profileEditor.classList.remove("editor_visible");
-// }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   if (inputName.value.trim() != "" && inputAbout.value.trim() != "") {
     profileName.textContent = inputName.value;
     profileAbout.textContent = inputAbout.value;
-    closePopup(profileEditor);
+    closePopup(profileEditor, "editor_visible");
   }
 }
 
 function handleProfilePopupOpening() {
-  // setInputProfileContent();
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
   profileEditor.classList.add("editor_visible");
+  document.addEventListener("keydown", (evt) => {
+    closeWithEsc(evt, profileEditor, "editor_visible");
+  });
 }
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
@@ -95,17 +100,11 @@ profileEditButton.addEventListener("click", () => {
 });
 
 profileCloseButton.addEventListener("click", () => {
-  closePopup(profileEditor);
+  closePopup(profileEditor, "editor_visible");
 });
 
 profileEditor.addEventListener("click", (evt) => {
   evt.target.classList.remove("editor_visible");
-});
-
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(profileEditor);
-  }
 });
 
 // ------- CARD ---------
@@ -139,7 +138,10 @@ function createCard(card) {
   const viewerTitle = viewerPopup.querySelector(".viewer__title");
 
   cardImage.addEventListener("click", () => {
-    viewerPopup.classList.toggle("viewer_visible");
+    viewerPopup.classList.add("viewer_visible");
+    document.addEventListener("keydown", (evt) => {
+      closeWithEsc(evt, viewerPopup, "viewer_visible");
+    });
     viwerImage.setAttribute("src", card.link);
     viwerImage.setAttribute("alt", card.name);
     viewerTitle.textContent = card.name;
@@ -152,26 +154,20 @@ initialCards.forEach((card) => createCard(card));
 
 // ------- GALERY ---------
 
-// function closePopupGallery() {
-//   galleryFormElement.reset();
-//   galleryEditor.classList.remove("editor_visible");
-// }
-
-function resetFormGallery() {
-  // é a melhor escolha?, ou só coloca a linha no código mesmo?
-  galleryFormElement.reset();
-}
-
 function controlGalleryForm(evt) {
   evt.preventDefault();
+  document.addEventListener("keydown", (evt) => {
+    closeWithEsc(evt, galleryEditor, "editor_visible");
+  });
+  resetForm(galleryFormElement);
   if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
     const newCard = { name: inputTitle.value, link: inputLink.value };
     createCard(newCard);
-    resetFormGallery();
-    closePopup(galleryEditor);
+    resetForm(galleryFormElement);
+    closePopup(galleryEditor, "editor_visible");
     return;
   }
-  resetFormGallery();
+  resetForm(galleryFormElement);
   galleryEditor.classList.add("editor_visible");
 }
 
@@ -180,36 +176,36 @@ galleryAddButton.addEventListener("click", controlGalleryForm);
 
 galleryCloseButton.addEventListener("click", () => {
   resetFormGallery();
-  closePopup(galleryEditor);
+  closePopup(galleryEditor, "editor_visible");
 });
 
 galleryEditor.addEventListener("click", (evt) => {
   evt.target.classList.remove("editor_visible");
 });
 
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    resetFormGallery();
-    closePopup(galleryEditor);
-  }
-});
-
 // ------- VIEWER ---------
 
 const viewerCloseButton = viewerPopup.querySelector(".viewer__close-button");
 
-function closeViewer() {
-  viewerPopup.classList.remove("viewer_visible");
-}
-
-viewerCloseButton.addEventListener("click", () => closeViewer());
+viewerCloseButton.addEventListener("click", () =>
+  closePopup(viewerPopup, "viewer_visible")
+);
 
 viewerPopup.addEventListener("click", (evt) => {
   evt.target.classList.remove("viewer_visible");
 });
 
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closeViewer();
-  }
-});
+// ------- VALIDAÇÃO ---------
+
+// profileCloseButton.addEventListener("click", () => {
+//   resetValidation({
+//     popupSelector: ".editor",
+//     inputSelector: ".form__input",
+//   });
+// });
+// galleryCloseButton.addEventListener("click", () => {
+//   resetValidation({
+//     popupSelector: ".editor",
+//     inputSelector: ".form__input",
+//   });
+// });

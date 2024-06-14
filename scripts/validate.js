@@ -90,9 +90,9 @@ enableValidation({
   errorClass: "form__error_visible",
 });
 
-const resetValidation = (evt) => {
-  const formElement = evt.target.closest(".editor");
-  const inputList = formElement.querySelectorAll(".form__input");
+const resetValidation = (evt, parameters) => {
+  const formElement = evt.target.closest(parameters.popupSelector);
+  const inputList = formElement.querySelectorAll(parameters.inputSelector);
 
   inputList.forEach((inputElement) => {
     hideError({
@@ -104,5 +104,17 @@ const resetValidation = (evt) => {
   });
 };
 
-profileCloseButton.addEventListener("click", resetValidation);
-galleryCloseButton.addEventListener("click", resetValidation);
+profileCloseButton.addEventListener("click", () => {
+  resetValidation({
+    popupSelector: ".editor",
+    inputSelector: ".form__input",
+  });
+});
+galleryCloseButton.addEventListener("click", () => {
+  resetValidation({
+    popupSelector: ".editor",
+    inputSelector: ".form__input",
+  });
+});
+
+// export { resetValidation };
