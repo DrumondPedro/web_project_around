@@ -1,4 +1,4 @@
-// import { resetValidation } from "./validate";
+import { resetValidation } from "./validate.js";
 
 const profileEditor = document.querySelector(".editor_profile");
 
@@ -73,8 +73,6 @@ function resetForms(formElement) {
   formElement.reset();
 }
 
-// ------- PROFILE ---------
-
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   if (inputName.value.trim() != "" && inputAbout.value.trim() != "") {
@@ -106,8 +104,6 @@ profileCloseButton.addEventListener("click", () => {
 profileEditor.addEventListener("click", (evt) => {
   evt.target.classList.remove("editor_visible");
 });
-
-// ------- CARD ---------
 
 function createCard(card) {
   const cardsTemplate = document.querySelector("#template-cards").content;
@@ -152,22 +148,19 @@ function createCard(card) {
 
 initialCards.forEach((card) => createCard(card));
 
-// ------- GALERY ---------
-
 function controlGalleryForm(evt) {
   evt.preventDefault();
   document.addEventListener("keydown", (evt) => {
     closeWithEsc(evt, galleryEditor, "editor_visible");
   });
-  resetForm(galleryFormElement);
   if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
     const newCard = { name: inputTitle.value, link: inputLink.value };
     createCard(newCard);
-    resetForm(galleryFormElement);
+    resetForms(galleryFormElement);
     closePopup(galleryEditor, "editor_visible");
     return;
   }
-  resetForm(galleryFormElement);
+  resetForms(galleryFormElement);
   galleryEditor.classList.add("editor_visible");
 }
 
@@ -175,15 +168,13 @@ galleryFormElement.addEventListener("submit", controlGalleryForm);
 galleryAddButton.addEventListener("click", controlGalleryForm);
 
 galleryCloseButton.addEventListener("click", () => {
-  resetFormGallery();
+  resetForms(galleryFormElement);
   closePopup(galleryEditor, "editor_visible");
 });
 
 galleryEditor.addEventListener("click", (evt) => {
   evt.target.classList.remove("editor_visible");
 });
-
-// ------- VIEWER ---------
 
 const viewerCloseButton = viewerPopup.querySelector(".viewer__close-button");
 
@@ -194,18 +185,3 @@ viewerCloseButton.addEventListener("click", () =>
 viewerPopup.addEventListener("click", (evt) => {
   evt.target.classList.remove("viewer_visible");
 });
-
-// ------- VALIDAÇÃO ---------
-
-// profileCloseButton.addEventListener("click", () => {
-//   resetValidation({
-//     popupSelector: ".editor",
-//     inputSelector: ".form__input",
-//   });
-// });
-// galleryCloseButton.addEventListener("click", () => {
-//   resetValidation({
-//     popupSelector: ".editor",
-//     inputSelector: ".form__input",
-//   });
-// });

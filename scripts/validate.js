@@ -1,3 +1,11 @@
+const profileCloseButton = document.querySelector(
+  ".editor__profile-close-button"
+);
+
+const galleryCloseButton = document.querySelector(
+  ".editor__gallery-close-button"
+);
+
 const showError = (parameters) => {
   const errorElement = parameters.formElement.querySelector(
     `.${parameters.inputElement.id}-error`
@@ -104,17 +112,17 @@ const resetValidation = (evt, parameters) => {
   });
 };
 
-profileCloseButton.addEventListener("click", () => {
-  resetValidation({
+profileCloseButton.addEventListener("click", (evt) => {
+  resetValidation(evt, {
     popupSelector: ".editor",
     inputSelector: ".form__input",
   });
 });
-galleryCloseButton.addEventListener("click", () => {
-  resetValidation({
+galleryCloseButton.addEventListener("click", (evt) => {
+  resetValidation(evt, {
     popupSelector: ".editor",
     inputSelector: ".form__input",
   });
 });
 
-// export { resetValidation };
+export { resetValidation };
