@@ -1,3 +1,5 @@
+import Card from "./Card.js";
+
 import { resetValidation } from "./validate.js";
 
 const profileEditor = document.querySelector(".editor_profile");
@@ -55,7 +57,20 @@ const initialCards = [
   },
 ];
 
-const viewerPopup = document.querySelector(".viewer");
+const configCard = {
+  templateSelector: "#template-cards",
+  cardSelector: ".gallery__card",
+  cardName: ".gallery__card-name",
+  cardImage: ".gallery__card-image",
+  likeButton: ".gallery__card-like-button",
+  likeButtonActive: "gallery__card-like-button-active",
+  deleteButton: ".gallery__card-delete-button",
+  viewerPopup: ".viewer",
+  viewerPopupVisible: "viewer_visible",
+  viewerImage: ".viewer__image",
+  viewerTitle: ".viewer__title",
+  viewerCloseButton: ".viewer__close-button",
+};
 
 function closePopup(popupElement, openPopupClass) {
   popupElement.classList.remove(openPopupClass);
@@ -105,48 +120,11 @@ profileEditor.addEventListener("click", (evt) => {
   evt.target.classList.remove("editor_visible");
 });
 
-function createCard(card) {
-  const cardsTemplate = document.querySelector("#template-cards").content;
-  const cardElement = cardsTemplate
-    .querySelector(".gallery__card")
-    .cloneNode(true);
-
-  const cardName = cardElement.querySelector(".gallery__card-name");
-  const cardImage = cardElement.querySelector(".gallery__card-image");
-
-  cardName.textContent = card.name;
-  cardImage.setAttribute("src", card.link);
-  cardImage.setAttribute("alt", card.name);
-
-  const likeButton = cardElement.querySelector(".gallery__card-like-button");
-  likeButton.addEventListener("click", (evt) =>
-    evt.target.classList.toggle("gallery__card-like-button-active")
+initialCards.forEach((card) => {
+  cardsContainer.prepend(
+    new Card(card, configCard, closeWithEsc, closePopup).generateCard()
   );
-
-  const deleteButton = cardElement.querySelector(
-    ".gallery__card-delete-button"
-  );
-  deleteButton.addEventListener("click", () =>
-    deleteButton.closest(".gallery__card").remove()
-  );
-
-  const viwerImage = viewerPopup.querySelector(".viewer__image");
-  const viewerTitle = viewerPopup.querySelector(".viewer__title");
-
-  cardImage.addEventListener("click", () => {
-    viewerPopup.classList.add("viewer_visible");
-    document.addEventListener("keydown", (evt) => {
-      closeWithEsc(evt, viewerPopup, "viewer_visible");
-    });
-    viwerImage.setAttribute("src", card.link);
-    viwerImage.setAttribute("alt", card.name);
-    viewerTitle.textContent = card.name;
-  });
-
-  cardsContainer.prepend(cardElement);
-}
-
-initialCards.forEach((card) => createCard(card));
+});
 
 function controlGalleryForm(evt) {
   evt.preventDefault();
@@ -155,7 +133,9 @@ function controlGalleryForm(evt) {
   });
   if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
     const newCard = { name: inputTitle.value, link: inputLink.value };
-    createCard(newCard);
+    cardsContainer.prepend(
+      new Card(newCard, configCard, closeWithEsc, closePopup).generateCard()
+    );
     resetForms(galleryFormElement);
     closePopup(galleryEditor, "editor_visible");
     return;
@@ -174,14 +154,4 @@ galleryCloseButton.addEventListener("click", () => {
 
 galleryEditor.addEventListener("click", (evt) => {
   evt.target.classList.remove("editor_visible");
-});
-
-const viewerCloseButton = viewerPopup.querySelector(".viewer__close-button");
-
-viewerCloseButton.addEventListener("click", () =>
-  closePopup(viewerPopup, "viewer_visible")
-);
-
-viewerPopup.addEventListener("click", (evt) => {
-  evt.target.classList.remove("viewer_visible");
 });
