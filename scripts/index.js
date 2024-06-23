@@ -1,6 +1,6 @@
 import Card from "./Card.js";
 
-import { resetValidation } from "./validate.js";
+import FormValidator from "./FormValidator.js";
 
 const profileEditor = document.querySelector(".editor_profile");
 
@@ -72,6 +72,14 @@ const configCard = {
   viewerCloseButton: ".viewer__close-button",
 };
 
+const configForm = {
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__submit-button",
+  inactiveButtonClass: "form__submit-button-inactive",
+  inputErrorClass: "form__input_type-error",
+  errorClass: "form__error_visible",
+};
+
 function closePopup(popupElement, openPopupClass) {
   popupElement.classList.remove(openPopupClass);
   document.removeEventListener("keydown", closeWithEsc);
@@ -122,7 +130,13 @@ profileEditor.addEventListener("click", (evt) => {
 
 initialCards.forEach((card) => {
   cardsContainer.prepend(
-    new Card(card, configCard, closeWithEsc, closePopup).generateCard()
+    new Card(
+      card,
+      configCard,
+      closeWithEsc,
+      closePopup,
+      initialCards
+    ).generateCard()
   );
 });
 
@@ -134,7 +148,13 @@ function controlGalleryForm(evt) {
   if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
     const newCard = { name: inputTitle.value, link: inputLink.value };
     cardsContainer.prepend(
-      new Card(newCard, configCard, closeWithEsc, closePopup).generateCard()
+      new Card(
+        newCard,
+        configCard,
+        closeWithEsc,
+        closePopup,
+        initialCards
+      ).generateCard()
     );
     resetForms(galleryFormElement);
     closePopup(galleryEditor, "editor_visible");
@@ -155,3 +175,15 @@ galleryCloseButton.addEventListener("click", () => {
 galleryEditor.addEventListener("click", (evt) => {
   evt.target.classList.remove("editor_visible");
 });
+
+new FormValidator(
+  ".form_profile",
+  configForm,
+  ".editor__profile-close-button"
+).enableValidation();
+
+new FormValidator(
+  ".form_gallery",
+  configForm,
+  ".editor__gallery-close-button"
+).enableValidation();
