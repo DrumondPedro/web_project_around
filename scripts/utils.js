@@ -30,7 +30,9 @@ function handleProfilePopupOpening() {
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
   profileEditor.classList.add("editor_visible");
-  document.addEventListener("keydown", closeWithEsc);
+  document.addEventListener("keydown", (evt) => {
+    closeWithEsc(evt, profileEditor, "editor_visible");
+  });
 }
 
 function controlGalleryForm(evt) {

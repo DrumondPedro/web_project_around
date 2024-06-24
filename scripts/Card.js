@@ -62,7 +62,6 @@ class Card {
     this._viewerTitle.textContent = this._name;
 
     document.addEventListener("keydown", (evt) => {
-      console.log(this._closeWithEsc);
       this._closeWithEsc(evt, this._viewerPopup, this._viewerPopupVisible);
     });
 
@@ -70,7 +69,6 @@ class Card {
   }
 
   _handleCloseViewerPopup() {
-    console.log("ola");
     this._closePopup(this._viewerPopup, this._viewerPopupVisible);
   }
 
@@ -88,12 +86,10 @@ class Card {
     });
 
     this._viewerCloseButton.addEventListener("click", () => {
-      console.log("ola");
       this._handleCloseViewerPopup();
     });
 
     this._viewerPopup.addEventListener("click", (evt) => {
-      console.log("ola");
       evt.target.classList.remove(this._viewerPopupVisible);
     });
   }
