@@ -2,6 +2,14 @@ import Card from "./Card.js";
 
 import FormValidator from "./FormValidator.js";
 
+import {
+  closePopup,
+  closeWithEsc,
+  handleProfilePopupOpening,
+  controlGalleryForm,
+  resetForms,
+} from "./utils.js";
+
 const profileEditor = document.querySelector(".editor_profile");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -80,22 +88,6 @@ const configForm = {
   errorClass: "form__error_visible",
 };
 
-function closePopup(popupElement, openPopupClass) {
-  popupElement.classList.remove(openPopupClass);
-  document.removeEventListener("keydown", closeWithEsc);
-}
-
-function closeWithEsc(evt, popupElement, openPopupClass) {
-  if (evt.key === "Escape") {
-    closePopup(popupElement, openPopupClass);
-    document.removeEventListener("keydown", closeWithEsc);
-  }
-}
-
-function resetForms(formElement) {
-  formElement.reset();
-}
-
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   if (inputName.value.trim() != "" && inputAbout.value.trim() != "") {
@@ -103,15 +95,6 @@ function handleProfileFormSubmit(evt) {
     profileAbout.textContent = inputAbout.value;
     closePopup(profileEditor, "editor_visible");
   }
-}
-
-function handleProfilePopupOpening() {
-  inputName.value = profileName.textContent;
-  inputAbout.value = profileAbout.textContent;
-  profileEditor.classList.add("editor_visible");
-  document.addEventListener("keydown", (evt) => {
-    closeWithEsc(evt, profileEditor, "editor_visible");
-  });
 }
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
@@ -140,30 +123,6 @@ initialCards.forEach((card) => {
   );
 });
 
-function controlGalleryForm(evt) {
-  evt.preventDefault();
-  document.addEventListener("keydown", (evt) => {
-    closeWithEsc(evt, galleryEditor, "editor_visible");
-  });
-  if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
-    const newCard = { name: inputTitle.value, link: inputLink.value };
-    cardsContainer.prepend(
-      new Card(
-        newCard,
-        configCard,
-        closeWithEsc,
-        closePopup,
-        initialCards
-      ).generateCard()
-    );
-    resetForms(galleryFormElement);
-    closePopup(galleryEditor, "editor_visible");
-    return;
-  }
-  resetForms(galleryFormElement);
-  galleryEditor.classList.add("editor_visible");
-}
-
 galleryFormElement.addEventListener("submit", controlGalleryForm);
 galleryAddButton.addEventListener("click", controlGalleryForm);
 
@@ -187,3 +146,18 @@ new FormValidator(
   configForm,
   ".editor__gallery-close-button"
 ).enableValidation();
+
+export {
+  profileEditor,
+  profileName,
+  profileAbout,
+  inputName,
+  inputAbout,
+  galleryEditor,
+  galleryFormElement,
+  inputTitle,
+  inputLink,
+  cardsContainer,
+  configCard,
+  initialCards,
+};

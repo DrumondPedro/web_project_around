@@ -1,5 +1,5 @@
 class Card {
-  constructor({ name, link }, config, closeWithEsc, closePopup) {
+  constructor({ name, link }, config, closeWithEsc, closePopup, cardsList) {
     this._name = name;
     this._link = link;
     this._templateSelector = config.templateSelector;
@@ -16,6 +16,7 @@ class Card {
     this._viewerCloseButton = config.viewerCloseButton;
     this._closeWithEsc = closeWithEsc;
     this._closePopup = closePopup;
+    this._cardsList = cardsList;
   }
 
   _getTemplate() {
@@ -38,6 +39,7 @@ class Card {
     this._viewerPopup = document.querySelector(this._viewerPopup);
     this._viewerImage = this._viewerPopup.querySelector(this._viewerImage);
     this._viewerTitle = this._viewerPopup.querySelector(this._viewerTitle);
+
     this._viewerCloseButton = this._viewerPopup.querySelector(
       this._viewerCloseButton
     );
@@ -49,6 +51,9 @@ class Card {
 
   _handleDeleteButton(evt) {
     evt.target.parentElement.remove();
+    this._cardsList = this._cardsList.filter((item) => {
+      return item.name !== this._cardName.textContent;
+    });
   }
 
   _handleOpenViewerPopup() {
@@ -65,6 +70,7 @@ class Card {
   }
 
   _handleCloseViewerPopup() {
+    console.log("ola");
     this._closePopup(this._viewerPopup, this._viewerPopupVisible);
   }
 
@@ -82,10 +88,12 @@ class Card {
     });
 
     this._viewerCloseButton.addEventListener("click", () => {
+      console.log("ola");
       this._handleCloseViewerPopup();
     });
 
     this._viewerPopup.addEventListener("click", (evt) => {
+      console.log("ola");
       evt.target.classList.remove(this._viewerPopupVisible);
     });
   }
