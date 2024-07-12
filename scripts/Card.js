@@ -2,18 +2,7 @@ class Card {
   constructor({ name, link }, config, closeWithEsc, closePopup, cardsList) {
     this._name = name;
     this._link = link;
-    this._templateSelector = config.templateSelector;
-    this._cardSelector = config.cardSelector;
-    this._cardName = config.cardName;
-    this._cardImage = config.cardImage;
-    this._likeButton = config.likeButton;
-    this._likeButtonActive = config.likeButtonActive;
-    this._deleteButton = config.deleteButton;
-    this._viewerPopup = config.viewerPopup;
-    this._viewerPopupVisible = config.viewerPopupVisible;
-    this._viewerImage = config.viewerImage;
-    this._viewerTitle = config.viewerTitle;
-    this._viewerCloseButton = config.viewerCloseButton;
+    this._config = config;
     this._closeWithEsc = closeWithEsc;
     this._closePopup = closePopup;
     this._cardsList = cardsList;
@@ -21,8 +10,8 @@ class Card {
 
   _getTemplate() {
     const cardElement = document
-      .querySelector(this._templateSelector)
-      .content.querySelector(this._cardSelector)
+      .querySelector(this._config.templateSelector)
+      .content.querySelector(this._config.cardSelector)
       .cloneNode(true);
 
     return cardElement;
@@ -31,22 +20,26 @@ class Card {
   _createConsts() {
     this._element = this._getTemplate();
 
-    this._cardName = this._element.querySelector(this._cardName);
-    this._cardImage = this._element.querySelector(this._cardImage);
-    this._likeButton = this._element.querySelector(this._likeButton);
-    this._deleteButton = this._element.querySelector(this._deleteButton);
+    this._cardName = this._element.querySelector(this._config.cardName);
+    this._cardImage = this._element.querySelector(this._config.cardImage);
+    this._likeButton = this._element.querySelector(this._config.likeButton);
+    this._deleteButton = this._element.querySelector(this._config.deleteButton);
 
-    this._viewerPopup = document.querySelector(this._viewerPopup);
-    this._viewerImage = this._viewerPopup.querySelector(this._viewerImage);
-    this._viewerTitle = this._viewerPopup.querySelector(this._viewerTitle);
+    this._viewerPopup = document.querySelector(this._config.viewerPopup);
+    this._viewerImage = this._viewerPopup.querySelector(
+      this._config.viewerImage
+    );
+    this._viewerTitle = this._viewerPopup.querySelector(
+      this._config.viewerTitle
+    );
 
     this._viewerCloseButton = this._viewerPopup.querySelector(
-      this._viewerCloseButton
+      this._config.viewerCloseButton
     );
   }
 
   _handleLikeButton(evt) {
-    evt.target.classList.toggle(this._likeButtonActive);
+    evt.target.classList.toggle(this._config.likeButtonActive);
   }
 
   _handleDeleteButton(evt) {
@@ -62,14 +55,18 @@ class Card {
     this._viewerTitle.textContent = this._name;
 
     document.addEventListener("keydown", (evt) => {
-      this._closeWithEsc(evt, this._viewerPopup, this._viewerPopupVisible);
+      this._closeWithEsc(
+        evt,
+        this._viewerPopup,
+        this._config.viewerPopupVisible
+      );
     });
 
-    this._viewerPopup.classList.add(this._viewerPopupVisible);
+    this._viewerPopup.classList.add(this._config.viewerPopupVisible);
   }
 
   _handleCloseViewerPopup() {
-    this._closePopup(this._viewerPopup, this._viewerPopupVisible);
+    this._closePopup(this._viewerPopup, this._config.viewerPopupVisible);
   }
 
   _setEventListeners() {
