@@ -1,8 +1,8 @@
 class Popup {
-  constructor({ popupSelector, openClass, closeButton }) {
-    this._popup = document.querySelector(popupSelector);
-    this._openClass = openClass;
-    this._closeButton = document.querySelector(closeButton);
+  constructor(config) {
+    this._popup = document.querySelector(config.popupSelector);
+    this._openClass = config.openClass;
+    this._closeButton = document.querySelector(config.closeButtonSelector);
   }
 
   open() {
@@ -30,8 +30,6 @@ class Popup {
       this.close();
     });
 
-    console.log(this._closeButton);
-
     this._popup.addEventListener("click", (evt) => {
       evt.target.classList.remove(this._openClass);
     });
@@ -39,48 +37,33 @@ class Popup {
 }
 
 class PopupWithImage extends Popup {
-  constructor({
-    popupSelector,
-    openClass,
-    closeButton,
-    viewerImage,
-    viewerTitle,
-    card,
-  }) {
-    super(popupSelector, openClass, closeButton);
-    this._popup = document.querySelector(popupSelector);
-    this._openClass = openClass;
-    this._closeButton = document.querySelector(closeButton);
-    this._image = document.querySelector(viewerImage);
-    this._title = document.querySelector(viewerTitle);
-    this._card = card;
+  constructor(config) {
+    super(config);
+    this._popup = document.querySelector(config.popupSelector);
+    this._openClass = config.openClass;
+    this._closeButton = document.querySelector(config.closeButtonSelector);
+    this._image = document.querySelector(config.viewerImageSelector);
+    this._title = document.querySelector(config.viewerTitleSelector);
   }
 
-  open() {
-    this._image.setAttribute("src", card.src);
-    this._image.setAttribute("alt", card.alt);
-    this._title.textContent = card.alt;
+  open(item) {
+    this._image.setAttribute("src", item.src);
+    this._image.setAttribute("alt", item.alt);
+    this._title.textContent = item.alt;
 
     super.open();
   }
 }
 
 class PopupWithForm extends Popup {
-  constructor({
-    popupSelector,
-    openClass,
-    closeButton,
-    submitFunction,
-    formElement,
-    inputSelector,
-  }) {
-    super(popupSelector, openClass, closeButton);
-    this._popup = document.querySelector(popupSelector);
-    this._openClass = openClass;
-    this._closeButton = document.querySelector(closeButton);
+  constructor(config, { submitFunction }) {
+    super(config);
+    this._popup = document.querySelector(config.popupSelector);
+    this._openClass = config.openClass;
+    this._closeButton = document.querySelector(config.closeButtonSelector);
+    this._formElement = document.querySelector(config.formElement);
+    this._inputSelector = config.inputSelector;
     this._submitFunction = submitFunction;
-    this._formElement = document.querySelector(formElement);
-    this._inputSelector = inputSelector;
   }
 
   _getInputValues() {
@@ -102,7 +85,7 @@ class PopupWithForm extends Popup {
 
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._submitFunction;
+      this._submitFunction();
       this.close();
     });
   }

@@ -1,11 +1,10 @@
 class Card {
-  constructor({ name, link }, config, closeWithEsc, closePopup, cardsList) {
+  constructor({ name, link }, { config, cardsList, renderer }) {
     this._name = name;
     this._link = link;
     this._config = config;
-    this._closeWithEsc = closeWithEsc;
-    this._closePopup = closePopup;
     this._cardsList = cardsList;
+    this._renderer = renderer;
   }
 
   _getTemplate() {
@@ -24,18 +23,6 @@ class Card {
     this._cardImage = this._element.querySelector(this._config.cardImage);
     this._likeButton = this._element.querySelector(this._config.likeButton);
     this._deleteButton = this._element.querySelector(this._config.deleteButton);
-
-    this._viewerPopup = document.querySelector(this._config.viewerPopup);
-    this._viewerImage = this._viewerPopup.querySelector(
-      this._config.viewerImage
-    );
-    this._viewerTitle = this._viewerPopup.querySelector(
-      this._config.viewerTitle
-    );
-
-    this._viewerCloseButton = this._viewerPopup.querySelector(
-      this._config.viewerCloseButton
-    );
   }
 
   _handleLikeButton(evt) {
@@ -50,23 +37,7 @@ class Card {
   }
 
   _handleOpenViewerPopup() {
-    this._viewerImage.setAttribute("src", this._link);
-    this._viewerImage.setAttribute("alt", this._name);
-    this._viewerTitle.textContent = this._name;
-
-    document.addEventListener("keydown", (evt) => {
-      this._closeWithEsc(
-        evt,
-        this._viewerPopup,
-        this._config.viewerPopupVisible
-      );
-    });
-
-    this._viewerPopup.classList.add(this._config.viewerPopupVisible);
-  }
-
-  _handleCloseViewerPopup() {
-    this._closePopup(this._viewerPopup, this._config.viewerPopupVisible);
+    this._renderer(this._cardImage);
   }
 
   _setEventListeners() {
@@ -80,14 +51,6 @@ class Card {
 
     this._cardImage.addEventListener("click", () => {
       this._handleOpenViewerPopup();
-    });
-
-    this._viewerCloseButton.addEventListener("click", () => {
-      this._handleCloseViewerPopup();
-    });
-
-    this._viewerPopup.addEventListener("click", (evt) => {
-      evt.target.classList.remove(this._viewerPopupVisible);
     });
   }
 
