@@ -9,50 +9,16 @@ import Section from "./Section.js";
 import UserInfo from "./UserInfo.js";
 
 import {
-  profileEditor,
   profileEditButton,
-  profileCloseButton,
-  profileFormElement,
-  profileName,
-  profileAbout,
-  inputName,
-  inputAbout,
-  galleryEditor,
   galleryAddButton,
-  galleryCloseButton,
-  galleryFormElement,
-  cardsContainer,
   initialCards,
   configCard,
   configFormValidator,
   configPopups,
-  closePopup,
-  closeWithEsc,
-  // handleProfilePopupOpening,
-  // controlGalleryForm,
-  // resetForms,
+  userInfoConfig,
+  inputName,
+  inputAbout,
 } from "./utils.js";
-
-// function handleProfileFormSubmit(evt) {
-//   evt.preventDefault();
-//   profileName.textContent = inputName.value;
-//   profileAbout.textContent = inputAbout.value;
-//   closePopup(profileEditor, "editor_visible");
-// }
-
-// profileFormElement.addEventListener("submit", handleProfileFormSubmit);
-
-// profileEditButton.addEventListener("click", () => {
-//   handleProfilePopupOpening();
-// });
-
-// profileCloseButton.addEventListener("click", () => {
-//   closePopup(profileEditor, "editor_visible");
-// });
-
-// profileEditor.addEventListener("click", (evt) => {
-//   evt.target.classList.remove("editor_visible");
-// });
 
 // --- Cards
 
@@ -101,6 +67,27 @@ galleryAddButton.addEventListener("click", () => {
   popupGalery.open();
 });
 
+// -- Profile
+
+const userInfo = new UserInfo(userInfoConfig);
+
+const popupProfile = new PopupWithForm(configPopups.popupProfile, {
+  submitFunction: (item) => {
+    userInfo.setUserInfo(item);
+  },
+});
+
+popupProfile.setEventListeners();
+
+profileEditButton.addEventListener("click", () => {
+  const data = userInfo.getUserInfo();
+
+  inputName.value = data.name;
+  inputAbout.value = data.about;
+
+  popupProfile.open();
+});
+
 // -- Validator
 
 new FormValidator(
@@ -114,10 +101,3 @@ new FormValidator(
   configFormValidator,
   ".editor__gallery-close-button"
 ).enableValidation();
-
-// const popup = new PopupWithForm(configPopups.popupProfile, {
-//   submitFunction: () => {},
-// });
-
-// pop.open();
-// pop._getInputValues();

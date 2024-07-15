@@ -1,30 +1,9 @@
-const profileEditor = document.querySelector(".editor_profile");
-
 const profileEditButton = document.querySelector(".profile__edit-button");
-const profileCloseButton = profileEditor.querySelector(
-  ".editor__profile-close-button"
-);
-
-const profileFormElement = document.querySelector(".form_profile");
-const profileName = document.querySelector(".profile__name");
-const profileAbout = document.querySelector(".profile__about");
-
-const inputName = profileFormElement.querySelector(".form__input_name");
-const inputAbout = profileFormElement.querySelector(".form__input_about");
-
-const galleryEditor = document.querySelector(".editor_gallery");
 
 const galleryAddButton = document.querySelector(".profile__add-button");
-const galleryCloseButton = document.querySelector(
-  ".editor__gallery-close-button"
-);
 
-const galleryFormElement = document.querySelector(".form_gallery");
-
-const inputTitle = galleryFormElement.querySelector(".form__input_title");
-const inputLink = galleryFormElement.querySelector(".form__input_link");
-
-const cardsContainer = document.querySelector(".gallery__cards");
+const inputName = document.querySelector(".form__input_name");
+const inputAbout = document.querySelector(".form__input_about");
 
 const initialCards = [
   {
@@ -96,66 +75,19 @@ const configPopups = {
   },
 };
 
-function closePopup(popupElement, openPopupClass) {
-  popupElement.classList.remove(openPopupClass);
-  document.removeEventListener("keydown", closeWithEsc);
-}
-
-function closeWithEsc(evt, popupElement, openPopupClass) {
-  if (evt.key === "Escape") {
-    closePopup(popupElement, openPopupClass);
-  }
-}
-
-// function handleProfilePopupOpening() {
-//   inputName.value = profileName.textContent;
-//   inputAbout.value = profileAbout.textContent;
-//   profileEditor.classList.add("editor_visible");
-//   document.addEventListener("keydown", (evt) => {
-//     closeWithEsc(evt, profileEditor, "editor_visible");
-//   });
-// }
-
-// function controlGalleryForm(evt) {
-//   evt.preventDefault();
-//   if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
-//     const newCard = { name: inputTitle.value, link: inputLink.value };
-//     cardsContainer.prepend(
-//       new Card(
-//         newCard,
-//         configCard,
-//         closeWithEsc,
-//         closePopup,
-//         initialCards
-//       ).generateCard()
-//     );
-//         closePopup(galleryEditor, "editor_visible");
-//     return;
-//   }
-//     galleryEditor.classList.add("editor_visible");
-// }
+const userInfoConfig = {
+  personSelector: ".profile__name",
+  aboutSelector: ".profile__about",
+};
 
 export {
-  profileEditor,
   profileEditButton,
-  profileCloseButton,
-  profileFormElement,
-  profileName,
-  profileAbout,
-  inputName,
-  inputAbout,
-  galleryEditor,
   galleryAddButton,
-  galleryCloseButton,
-  galleryFormElement,
-  cardsContainer,
   initialCards,
   configCard,
   configFormValidator,
   configPopups,
-  closePopup,
-  closeWithEsc,
-  // handleProfilePopupOpening,
-  // controlGalleryForm,
-  // resetForms,
+  userInfoConfig,
+  inputName,
+  inputAbout,
 };

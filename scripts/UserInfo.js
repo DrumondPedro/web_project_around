@@ -1,6 +1,6 @@
 class UserInfo {
-  constructor({ nameSelector, aboutSelector, inputsData }) {
-    this._name = document.querySelector(nameSelector);
+  constructor({ personSelector, aboutSelector }) {
+    this._name = document.querySelector(personSelector);
     this._about = document.querySelector(aboutSelector);
   }
 
@@ -8,13 +8,15 @@ class UserInfo {
     this._userInfo = {};
 
     this._userInfo["name"] = this._name.textContent;
-    this._userInfo["about"] = this._bout.textContent;
+    this._userInfo["about"] = this._about.textContent;
 
     return this._userInfo;
   }
 
-  setUserInfo() {
-    this._name.textContent = inputsData[0];
-    this._about.textContent = inputsData[1];
+  setUserInfo({ person, about }) {
+    this._name.textContent = person;
+    this._about.textContent = about;
   }
 }
+
+export default UserInfo;
