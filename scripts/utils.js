@@ -1,5 +1,3 @@
-import Card from "./Card.js";
-
 const profileEditor = document.querySelector(".editor_profile");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -56,6 +54,7 @@ const initialCards = [
 ];
 
 const configCard = {
+  cardsContainerSelector: ".gallery__cards",
   templateSelector: "#template-cards",
   cardSelector: ".gallery__card",
   cardName: ".gallery__card-name",
@@ -63,19 +62,38 @@ const configCard = {
   likeButton: ".gallery__card-like-button",
   likeButtonActive: "gallery__card-like-button-active",
   deleteButton: ".gallery__card-delete-button",
-  viewerPopup: ".viewer",
-  viewerPopupVisible: "viewer_visible",
-  viewerImage: ".viewer__image",
-  viewerTitle: ".viewer__title",
-  viewerCloseButton: ".viewer__close-button",
 };
 
-const configForm = {
+const configFormValidator = {
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit-button",
   inactiveButtonClass: "form__submit-button-inactive",
   inputErrorClass: "form__input_type-error",
   errorClass: "form__error_visible",
+};
+
+const configPopups = {
+  popupProfile: {
+    popupSelector: ".editor_profile",
+    openClass: "editor_visible",
+    closeButtonSelector: ".editor__profile-close-button",
+    formElement: ".form_profile",
+    inputSelector: ".form__input",
+  },
+  popupGalery: {
+    popupSelector: ".editor_gallery",
+    openClass: "editor_visible",
+    closeButtonSelector: ".editor__gallery-close-button",
+    formElement: ".form_gallery",
+    inputSelector: ".form__input",
+  },
+  popupViewer: {
+    popupSelector: ".viewer",
+    openClass: "viewer_visible",
+    closeButtonSelector: ".viewer__close-button",
+    viewerImageSelector: ".viewer__image",
+    viewerTitleSelector: ".viewer__title",
+  },
 };
 
 function closePopup(popupElement, openPopupClass) {
@@ -89,42 +107,33 @@ function closeWithEsc(evt, popupElement, openPopupClass) {
   }
 }
 
-function handleProfilePopupOpening() {
-  inputName.value = profileName.textContent;
-  inputAbout.value = profileAbout.textContent;
-  profileEditor.classList.add("editor_visible");
-  document.addEventListener("keydown", (evt) => {
-    closeWithEsc(evt, profileEditor, "editor_visible");
-  });
-}
+// function handleProfilePopupOpening() {
+//   inputName.value = profileName.textContent;
+//   inputAbout.value = profileAbout.textContent;
+//   profileEditor.classList.add("editor_visible");
+//   document.addEventListener("keydown", (evt) => {
+//     closeWithEsc(evt, profileEditor, "editor_visible");
+//   });
+// }
 
-function controlGalleryForm(evt) {
-  evt.preventDefault();
-  document.addEventListener("keydown", (evt) => {
-    closeWithEsc(evt, galleryEditor, "editor_visible");
-  });
-  if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
-    const newCard = { name: inputTitle.value, link: inputLink.value };
-    cardsContainer.prepend(
-      new Card(
-        newCard,
-        configCard,
-        closeWithEsc,
-        closePopup,
-        initialCards
-      ).generateCard()
-    );
-    resetForms(galleryFormElement);
-    closePopup(galleryEditor, "editor_visible");
-    return;
-  }
-  resetForms(galleryFormElement);
-  galleryEditor.classList.add("editor_visible");
-}
-
-function resetForms(formElement) {
-  formElement.reset();
-}
+// function controlGalleryForm(evt) {
+//   evt.preventDefault();
+//   if (inputLink.value.trim() != "" && inputTitle.value.trim() != "") {
+//     const newCard = { name: inputTitle.value, link: inputLink.value };
+//     cardsContainer.prepend(
+//       new Card(
+//         newCard,
+//         configCard,
+//         closeWithEsc,
+//         closePopup,
+//         initialCards
+//       ).generateCard()
+//     );
+//         closePopup(galleryEditor, "editor_visible");
+//     return;
+//   }
+//     galleryEditor.classList.add("editor_visible");
+// }
 
 export {
   profileEditor,
@@ -142,10 +151,11 @@ export {
   cardsContainer,
   initialCards,
   configCard,
-  configForm,
+  configFormValidator,
+  configPopups,
   closePopup,
   closeWithEsc,
-  handleProfilePopupOpening,
-  controlGalleryForm,
-  resetForms,
+  // handleProfilePopupOpening,
+  // controlGalleryForm,
+  // resetForms,
 };

@@ -67,7 +67,7 @@ const cardsSection = new Section(
         config: configCard,
         cardsList: initialCards,
         renderer: (item) => {
-          newViewerPopup.open(item);
+          viewerPopup.open(item);
         },
       });
       const cardElement = newCard.generateCard();
@@ -82,22 +82,26 @@ cardsSection.itemRenderer();
 // -- Galery
 
 const popupGalery = new PopupWithForm(configPopups.popupGalery, {
-  submitFunction: () => {},
+  submitFunction: (item) => {
+    const newCard = new Card(item, {
+      config: configCard,
+      cardsList: initialCards,
+      renderer: (item) => {
+        viewerPopup.open(item);
+      },
+    });
+    const cardElement = newCard.generateCard();
+    cardsSection.addItem(cardElement);
+  },
 });
 
 popupGalery.setEventListeners();
 
-// galleryFormElement.addEventListener("submit", controlGalleryForm);
-// galleryAddButton.addEventListener("click", controlGalleryForm);
+galleryAddButton.addEventListener("click", () => {
+  popupGalery.open();
+});
 
-// galleryCloseButton.addEventListener("click", () => {
-//   resetForms(galleryFormElement);
-//   closePopup(galleryEditor, "editor_visible");
-// });
-
-// galleryEditor.addEventListener("click", (evt) => {
-//   evt.target.classList.remove("editor_visible");
-// });
+// -- Validator
 
 new FormValidator(
   ".form_profile",
