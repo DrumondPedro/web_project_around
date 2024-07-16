@@ -1,12 +1,14 @@
-import Card from "./Card.js";
+import "./pages/index.css";
 
-import FormValidator from "./FormValidator.js";
+import Card from "./scripts/Card.js";
 
-import { PopupWithImage, PopupWithForm } from "./Popup.js";
+import FormValidator from "./scripts/FormValidator.js";
 
-import Section from "./Section.js";
+import { PopupWithImage, PopupWithForm } from "./scripts/Popup.js";
 
-import UserInfo from "./UserInfo.js";
+import Section from "./scripts/Section.js";
+
+import UserInfo from "./scripts/UserInfo.js";
 
 import {
   profileEditButton,
@@ -18,7 +20,7 @@ import {
   userInfoConfig,
   inputName,
   inputAbout,
-} from "./utils.js";
+} from "./scripts/utils.js";
 
 // --- Cards
 
