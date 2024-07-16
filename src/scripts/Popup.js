@@ -14,9 +14,6 @@ class Popup {
 
   close() {
     this._popup.classList.remove(this._openClass);
-    // document.removeEventListener("keydown", this._handleEscClose) --
-    // como remover o listener sendo que preciso passar a função como
-    // uma arowfunction anonima pra funcionar????;
   }
 
   _handleEscClose(evt) {

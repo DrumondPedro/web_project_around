@@ -22,8 +22,6 @@ import {
   inputAbout,
 } from "./scripts/utils.js";
 
-// --- Cards
-
 const viewerPopup = new PopupWithImage(configPopups.popupViewer);
 viewerPopup.setEventListeners();
 
@@ -47,8 +45,6 @@ const cardsSection = new Section(
 
 cardsSection.itemRenderer();
 
-// -- Galery
-
 const popupGalery = new PopupWithForm(configPopups.popupGalery, {
   submitFunction: (item) => {
     const newCard = new Card(item, {
@@ -69,8 +65,6 @@ galleryAddButton.addEventListener("click", () => {
   popupGalery.open();
 });
 
-// -- Profile
-
 const userInfo = new UserInfo(userInfoConfig);
 
 const popupProfile = new PopupWithForm(configPopups.popupProfile, {
@@ -89,8 +83,6 @@ profileEditButton.addEventListener("click", () => {
 
   popupProfile.open();
 });
-
-// -- Validator
 
 new FormValidator(
   ".form_profile",
