@@ -4,7 +4,9 @@ import Card from "./scripts/Card.js";
 
 import FormValidator from "./scripts/FormValidator.js";
 
-import { PopupWithImage, PopupWithForm } from "./scripts/Popup.js";
+import PopupWithImage from "./scripts/PopupWithImage.js";
+
+import PopupWithForm from "./scripts/PopupWithForm.js";
 
 import Section from "./scripts/Section.js";
 
