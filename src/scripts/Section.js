@@ -9,6 +9,14 @@ class Section {
     this._container.prepend(element);
   }
 
+  getItems() {
+    return this._items;
+  }
+
+  setItems(newItems) {
+    this._items = newItems;
+  }
+
   clear() {
     this._container.innerHTML = "";
   }

@@ -33,7 +33,7 @@ const cardsSection = new Section(
     renderer: (item) => {
       const newCard = new Card(item, {
         config: configCard,
-        cardsList: initialCards,
+        section: cardsSection,
         renderer: (item) => {
           viewerPopup.open(item);
         },
@@ -51,13 +51,16 @@ const popupGalery = new PopupWithForm(configPopups.popupGalery, {
   submitFunction: (item) => {
     const newCard = new Card(item, {
       config: configCard,
-      cardsList: initialCards,
+      section: cardsSection,
       renderer: (item) => {
         viewerPopup.open(item);
       },
     });
     const cardElement = newCard.generateCard();
     cardsSection.addItem(cardElement);
+
+    const oldCards = cardsSection.getItems();
+    oldCards.push(item);
   },
 });
 

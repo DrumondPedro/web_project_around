@@ -3,9 +3,6 @@ import Popup from "./Popup";
 export default class PopupWithForm extends Popup {
   constructor(config, { submitFunction }) {
     super(config);
-    this._popup = document.querySelector(config.popupSelector);
-    this._openClass = config.openClass;
-    this._closeButton = document.querySelector(config.closeButtonSelector);
     this._formElement = document.querySelector(config.formElement);
     this._inputSelector = config.inputSelector;
     this._submitFunction = submitFunction;

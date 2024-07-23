@@ -1,9 +1,9 @@
 class Card {
-  constructor({ name, link }, { config, cardsList, renderer }) {
+  constructor({ name, link }, { config, section, renderer }) {
     this._name = name;
     this._link = link;
     this._config = config;
-    this._cardsList = cardsList;
+    this._section = section;
     this._renderer = renderer;
   }
 
@@ -31,9 +31,13 @@ class Card {
 
   _handleDeleteButton(evt) {
     evt.target.parentElement.remove();
-    this._cardsList = this._cardsList.filter((item) => {
+
+    const oldCards = this._section.getItems();
+    const newCards = oldCards.filter((item) => {
       return item.name !== this._cardName.textContent;
     });
+    this._section.setItems(newCards);
+    console.log(this._section.getItems());
   }
 
   _handleOpenViewerPopup() {
