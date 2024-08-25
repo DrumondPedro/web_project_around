@@ -17,6 +17,10 @@
   margin: 29.74px 0 0;
 }
 
+.form__field:only-child {
+  margin: 0;
+}
+
 .form__input {
   width: 100%;
   border: none;

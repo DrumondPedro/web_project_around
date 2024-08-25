@@ -143,6 +143,33 @@
         </form>
       </div>
     </div>
+    <div class="editor editor_picture">
+      <div class="editor__content">
+        <button class="editor__close-button editor__picture-close-button">
+          <img
+            src="<%=require('./images/editor/editor_close_Icon.svg')%>"
+            alt="Ícone de um x"
+            class="editor__close-image"
+          />
+        </button>
+        <h2 class="editor__title">Alterar a foto do perfil</h2>
+        <form class="form form_picture editor__form" novalidate>
+          <fieldset class="form__set">
+            <label class="form__field">
+              <input
+                type="url"
+                class="form__input form__input_picture"
+                id="picture"
+                placeholder="Link da foto"
+                required
+              />
+              <span class="form__error link-error"></span>
+            </label>
+          </fieldset>
+          <button type="submit" class="form__submit-button">Criar</button>
+        </form>
+      </div>
+    </div>
     <div class="viewer">
       <div class="viewer__content">
         <button class="viewer__close-button">
