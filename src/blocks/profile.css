@@ -7,6 +7,26 @@
   display: flex;
   align-items: center;
   column-gap: 30px;
+  position: relative;
+}
+
+.profile__picture-edit-button {
+  border: none;
+  width: 100%;
+  max-width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: transparent;
+  position: absolute;
+}
+
+.profile__picture-edit-button:hover {
+  background-image: url(../images/profile/profile_edit_button.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 26px;
+  background-color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
 }
 
 .profile__picture {

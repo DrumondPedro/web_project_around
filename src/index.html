@@ -26,11 +26,12 @@
       </header>
       <main class="content">
         <section class="profile">
+          <button class="profile__picture-edit-button"></button>
           <img
             src="<%=require('./images/profile/profile_user_photo.jpg')%>"
-            alt="Imagem colorida de um senhor de idade branco
-              usando um gorro vermelho, um óculos de armação metálica
-              e uma camisa azul-claro de botão."
+            alt="Imagem colorida de um senhor de idade branco,
+          usando um gorro vermelho, um óculos de armação metálica
+          e uma camisa azul-claro de botão."
             class="profile__picture"
           />
           <div class="profile__personal-information">
@@ -165,7 +166,10 @@
         <img class="gallery__card-image" src=" " alt="" />
         <div class="gallery__card-information">
           <p class="gallery__card-name"></p>
-          <button class="gallery__card-like-button"></button>
+          <div class="gallery__card-like-content">
+            <button class="gallery__card-like-button"></button>
+            <p class="gallery__card-like-counter">0</p>
+          </div>
         </div>
       </li>
     </template>
