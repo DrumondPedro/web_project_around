@@ -38,6 +38,11 @@ const initialCards = [
   },
 ];
 
+const apiConfig = {
+  baseURL: "https://around.nomoreparties.co/v1/web-ptbr-cohort-11",
+  userAuthorization: "3fda8d28-174d-4647-9b4c-9acb9effd1bc",
+};
+
 const configCard = {
   cardsContainerSelector: ".gallery__cards",
   templateSelector: "#template-cards",
@@ -111,4 +116,5 @@ export {
   inputName,
   inputAbout,
   profilePicture,
+  apiConfig,
 };

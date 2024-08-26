@@ -14,6 +14,8 @@ import Section from "./scripts/Section.js";
 
 import UserInfo from "./scripts/UserInfo.js";
 
+import Api from "./scripts/Api.js";
+
 import {
   profileEditButton,
   galleryAddButton,
@@ -26,7 +28,10 @@ import {
   inputName,
   inputAbout,
   profilePicture,
+  apiConfig,
 } from "./scripts/utils.js";
+
+const apiTripleTen = new Api(apiConfig);
 
 const viewerPopup = new PopupWithImage(configPopups.popupViewer);
 viewerPopup.setEventListeners();
