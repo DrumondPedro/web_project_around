@@ -86,6 +86,12 @@ const configPopups = {
     viewerImageSelector: ".viewer__image",
     viewerTitleSelector: ".viewer__title",
   },
+  popupDeleteImage: {
+    popupSelector: ".confirmer_image-delete",
+    openClass: "confirmer_visible",
+    closeButtonSelector: ".confirmer__image-delete-close-button",
+    confirmationButtonSelector: ".confirmer__confirmation-button",
+  },
 };
 
 const userInfoConfig = {

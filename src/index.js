@@ -8,6 +8,8 @@ import PopupWithImage from "./scripts/PopupWithImage.js";
 
 import PopupWithForm from "./scripts/PopupWithForm.js";
 
+import PopupWithConfirmation from "./scripts/PopupWithConfirmation.js";
+
 import Section from "./scripts/Section.js";
 
 import UserInfo from "./scripts/UserInfo.js";
@@ -102,6 +104,12 @@ popupPicture.setEventListeners();
 pictureEditButton.addEventListener("click", () => {
   popupPicture.open();
 });
+
+const deleteCardConfirmationPoup = new PopupWithConfirmation(
+  configPopups.popupDeleteImage
+);
+
+deleteCardConfirmationPoup.setEventListeners();
 
 new FormValidator(
   ".form_profile",
