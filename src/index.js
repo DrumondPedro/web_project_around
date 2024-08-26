@@ -15,6 +15,7 @@ import UserInfo from "./scripts/UserInfo.js";
 import {
   profileEditButton,
   galleryAddButton,
+  pictureEditButton,
   initialCards,
   configCard,
   configFormValidator,
@@ -22,6 +23,7 @@ import {
   userInfoConfig,
   inputName,
   inputAbout,
+  profilePicture,
 } from "./scripts/utils.js";
 
 const viewerPopup = new PopupWithImage(configPopups.popupViewer);
@@ -89,6 +91,18 @@ profileEditButton.addEventListener("click", () => {
   popupProfile.open();
 });
 
+const popupPicture = new PopupWithForm(configPopups.popupPicture, {
+  submitFunction: (item) => {
+    profilePicture.setAttribute("src", `${item.picture}`);
+  },
+});
+
+popupPicture.setEventListeners();
+
+pictureEditButton.addEventListener("click", () => {
+  popupPicture.open();
+});
+
 new FormValidator(
   ".form_profile",
   configFormValidator,
@@ -99,4 +113,10 @@ new FormValidator(
   ".form_gallery",
   configFormValidator,
   ".editor__gallery-close-button"
+).enableValidation();
+
+new FormValidator(
+  ".form_picture",
+  configFormValidator,
+  ".editor__picture-close-button"
 ).enableValidation();

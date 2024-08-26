@@ -2,8 +2,14 @@ const profileEditButton = document.querySelector(".profile__edit-button");
 
 const galleryAddButton = document.querySelector(".profile__add-button");
 
+const pictureEditButton = document.querySelector(
+  ".profile__picture-edit-button"
+);
+
 const inputName = document.querySelector(".form__input_name");
 const inputAbout = document.querySelector(".form__input_about");
+
+const profilePicture = document.querySelector(".profile__picture");
 
 const initialCards = [
   {
@@ -66,6 +72,13 @@ const configPopups = {
     formElement: ".form_gallery",
     inputSelector: ".form__input",
   },
+  popupPicture: {
+    popupSelector: ".editor_picture",
+    openClass: "editor_visible",
+    closeButtonSelector: ".editor__picture-close-button",
+    formElement: ".form_picture",
+    inputSelector: ".form__input",
+  },
   popupViewer: {
     popupSelector: ".viewer",
     openClass: "viewer_visible",
@@ -83,6 +96,7 @@ const userInfoConfig = {
 export {
   profileEditButton,
   galleryAddButton,
+  pictureEditButton,
   initialCards,
   configCard,
   configFormValidator,
@@ -90,4 +104,5 @@ export {
   userInfoConfig,
   inputName,
   inputAbout,
+  profilePicture,
 };
