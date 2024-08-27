@@ -64,15 +64,16 @@ export default class Api {
     });
   }
 
-  updateUserAvatar(userAvatar, path) {
+  updateUserAvatar({ picture }, path) {
     // /users/me/avatar
+    console.log(picture);
     return fetch(`${this._baseURL}${path}`, {
       method: "PATCH",
       headers: {
         authorization: this._userAuthorization,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ avatar: `${userAvatar}` }),
+      body: JSON.stringify({ avatar: `${picture}` }),
     });
   }
 

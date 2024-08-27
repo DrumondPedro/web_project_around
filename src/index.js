@@ -100,7 +100,25 @@ profileEditButton.addEventListener("click", () => {
 
 const popupPicture = new PopupWithForm(configPopups.popupPicture, {
   submitFunction: (item) => {
-    profilePicture.setAttribute("src", `${item.picture}`);
+    popupPicture.renderSaving(true);
+    apiTripleTen
+      .updateUserAvatar(item, "/users/me/avatar")
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((res) => {
+        profilePicture.setAttribute("src", `${res.avatar}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupPicture.close();
+        popupPicture.renderSaving(false);
+      });
   },
 });
 

@@ -69,6 +69,8 @@ const configPopups = {
     closeButtonSelector: ".editor__profile-close-button",
     formElement: ".form_profile",
     inputSelector: ".form__input",
+    submitButtonSelector: ".form__submit-button",
+    buttonText: "Salvar",
   },
   popupGalery: {
     popupSelector: ".editor_gallery",
@@ -76,6 +78,8 @@ const configPopups = {
     closeButtonSelector: ".editor__gallery-close-button",
     formElement: ".form_gallery",
     inputSelector: ".form__input",
+    submitButtonSelector: ".form__submit-button",
+    buttonText: "Criar",
   },
   popupPicture: {
     popupSelector: ".editor_picture",
@@ -83,6 +87,8 @@ const configPopups = {
     closeButtonSelector: ".editor__picture-close-button",
     formElement: ".form_picture",
     inputSelector: ".form__input",
+    submitButtonSelector: ".form__submit-button",
+    buttonText: "Salvar",
   },
   popupViewer: {
     popupSelector: ".viewer",

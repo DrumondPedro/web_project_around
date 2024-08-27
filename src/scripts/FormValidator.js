@@ -81,7 +81,9 @@ class FormValidator {
 
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._submitButtonElement.classList.add(this._inactiveButtonClass);
+      setTimeout(() => {
+        this._submitButtonElement.classList.add(this._inactiveButtonClass);
+      }, 2000);
     });
 
     this._toggleButtonState();

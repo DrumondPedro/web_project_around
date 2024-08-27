@@ -6,6 +6,10 @@ export default class PopupWithForm extends Popup {
     this._formElement = document.querySelector(config.formElement);
     this._inputSelector = config.inputSelector;
     this._submitFunction = submitFunction;
+    this._submitButton = this._formElement.querySelector(
+      config.submitButtonSelector
+    );
+    this._buttonText = config.buttonText;
   }
 
   _getInputValues() {
@@ -31,13 +35,19 @@ export default class PopupWithForm extends Popup {
       this._data = this._getInputValues();
 
       this._submitFunction(this._data);
-
-      this.close();
     });
   }
 
   close() {
     this._formElement.reset();
     super.close();
+  }
+
+  renderSaving(isSaving) {
+    if (isSaving) {
+      this._submitButton.textContent = "Salvando...";
+    } else {
+      this._submitButton.textContent = this._buttonText;
+    }
   }
 }
