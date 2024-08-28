@@ -81,6 +81,22 @@ galleryAddButton.addEventListener("click", () => {
 
 const userInfo = new UserInfo(userInfoConfig);
 
+apiTripleTen
+  .getUserInfo("/users/me")
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  })
+  .then((res) => {
+    userInfo.setUserInfo(res);
+    profilePicture.setAttribute("src", `${res.avatar}`);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 const popupProfile = new PopupWithForm(configPopups.popupProfile, {
   submitFunction: (item) => {
     userInfo.setUserInfo(item);
