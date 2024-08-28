@@ -20,7 +20,6 @@ import {
   profileEditButton,
   galleryAddButton,
   pictureEditButton,
-  initialCards,
   configCard,
   configFormValidator,
   configPopups,
@@ -34,27 +33,43 @@ import {
 const apiTripleTen = new Api(apiConfig);
 
 const viewerPopup = new PopupWithImage(configPopups.popupViewer);
+
 viewerPopup.setEventListeners();
 
-const cardsSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const newCard = new Card(item, {
-        config: configCard,
-        section: cardsSection,
+apiTripleTen
+  .getInitialCards("/cards")
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  })
+  .then((cards) => {
+    const cardsSection = new Section(
+      {
+        items: cards,
         renderer: (item) => {
-          viewerPopup.open(item);
+          const newCard = new Card(item, {
+            config: configCard,
+            section: cardsSection,
+            renderer: (item) => {
+              viewerPopup.open(item);
+            },
+          });
+          const cardElement = newCard.generateCard();
+          cardsSection.addItem(cardElement);
         },
-      });
-      const cardElement = newCard.generateCard();
-      cardsSection.addItem(cardElement);
-    },
-  },
-  configCard.cardsContainerSelector
-);
+      },
+      configCard.cardsContainerSelector
+    );
+    cardsSection.itemRenderer();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-cardsSection.itemRenderer();
+// adiciona um card novo no servidor, e com a resposta de confirmação do servidor
+// renderiza o novo cartão
 
 const popupGalery = new PopupWithForm(configPopups.popupGalery, {
   submitFunction: (item) => {
@@ -89,9 +104,9 @@ apiTripleTen
     }
     return Promise.reject(`Error: ${res.status}`);
   })
-  .then((res) => {
-    userInfo.setUserInfo(res);
-    profilePicture.setAttribute("src", `${res.avatar}`);
+  .then((data) => {
+    userInfo.setUserInfo(data);
+    profilePicture.setAttribute("src", `${data.avatar}`);
   })
   .catch((err) => {
     console.log(err);
@@ -108,8 +123,8 @@ const popupProfile = new PopupWithForm(configPopups.popupProfile, {
         }
         return Promise.reject(`Error: ${res.status}`);
       })
-      .then((res) => {
-        userInfo.setUserInfo(res);
+      .then((data) => {
+        userInfo.setUserInfo(data);
       })
       .catch((err) => {
         console.log(err);
@@ -143,8 +158,8 @@ const popupPicture = new PopupWithForm(configPopups.popupPicture, {
         }
         return Promise.reject(`Error: ${res.status}`);
       })
-      .then((res) => {
-        profilePicture.setAttribute("src", `${res.avatar}`);
+      .then((data) => {
+        profilePicture.setAttribute("src", `${data.avatar}`);
       })
       .catch((err) => {
         console.log(err);
