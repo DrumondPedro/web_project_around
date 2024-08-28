@@ -49,7 +49,7 @@ export default class Api {
     });
   }
 
-  updateUserInfo({ userName, userAbout }, path) {
+  updateUserInfo({ person: userName, about: userAbout }, path) {
     // /users/me
     return fetch(`${this._baseURL}${path}`, {
       method: "PATCH",

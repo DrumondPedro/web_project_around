@@ -99,7 +99,25 @@ apiTripleTen
 
 const popupProfile = new PopupWithForm(configPopups.popupProfile, {
   submitFunction: (item) => {
-    userInfo.setUserInfo(item);
+    popupProfile.renderSaving(true);
+    apiTripleTen
+      .updateUserInfo(item, "/users/me")
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((res) => {
+        userInfo.setUserInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupProfile.close();
+        popupProfile.renderSaving(false);
+      });
   },
 });
 
