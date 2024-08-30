@@ -14,7 +14,7 @@ export default class Api {
     });
   }
 
-  addNewCard({ cardName, cardLink }, path) {
+  addNewCard({ name: cardName, link: cardLink }, path) {
     // /cards
     return fetch(`${this._baseURL}${path}`, {
       method: "POST",

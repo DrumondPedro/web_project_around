@@ -1,10 +1,17 @@
 class Card {
-  constructor({ name, link }, { config, section, renderer }) {
+  constructor(
+    { name, link, likes, _id, owner },
+    { config, section, renderer, userId }
+  ) {
     this._name = name;
     this._link = link;
     this._config = config;
-    this._section = section;
     this._renderer = renderer;
+    this._likes = likes;
+    this._id = _id;
+    this._ownerId = owner._id;
+    this._userId = userId;
+    // this._section = section;
   }
 
   _getTemplate() {
@@ -19,10 +26,16 @@ class Card {
   _createConsts() {
     this._element = this._getTemplate();
 
-    this._cardName = this._element.querySelector(this._config.cardName);
-    this._cardImage = this._element.querySelector(this._config.cardImage);
-    this._likeButton = this._element.querySelector(this._config.likeButton);
-    this._deleteButton = this._element.querySelector(this._config.deleteButton);
+    this._cardName = this._element.querySelector(this._config.cardNameSelector);
+    this._cardImage = this._element.querySelector(
+      this._config.cardImageSelector
+    );
+    this._likeButton = this._element.querySelector(
+      this._config.likeButtonSelector
+    );
+    this._deleteButton = this._element.querySelector(
+      this._config.deleteButtonSelector
+    );
   }
 
   _handleLikeButton(evt) {
@@ -32,12 +45,12 @@ class Card {
   _handleDeleteButton(evt) {
     evt.target.parentElement.remove();
 
-    const oldCards = this._section.getItems();
-    const newCards = oldCards.filter((item) => {
-      return item.name !== this._cardName.textContent;
-    });
-    this._section.setItems(newCards);
-    console.log(this._section.getItems());
+    // const oldCards = this._section.getItems();
+    // const newCards = oldCards.filter((item) => {
+    //   return item.name !== this._cardName.textContent;
+    // });
+    // this._section.setItems(newCards);
+    // console.log(this._section.getItems());
   }
 
   _handleOpenViewerPopup() {
@@ -65,6 +78,11 @@ class Card {
     this._cardImage.setAttribute("src", this._link);
     this._cardImage.setAttribute("alt", this._name);
 
+    if (this._ownerId === this._userId) {
+      this._deleteButton.classList.add(this._config.deleteButtonVisible);
+    }
+
+    // console.log(this);
     this._setEventListeners();
 
     return this._element;

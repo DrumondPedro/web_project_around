@@ -30,6 +30,11 @@
   position: absolute;
   top: 18px;
   right: 15px;
+  display: none;
+}
+
+.gallery__card-delete-button-visible {
+  display: block;
 }
 
 .gallery__card-delete-button:hover {

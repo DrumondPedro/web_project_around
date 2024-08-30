@@ -38,6 +38,8 @@ const initialCards = [
   },
 ];
 
+const userId = "57ad3ec977745486d8c3e581";
+
 const apiConfig = {
   baseURL: "https://around.nomoreparties.co/v1/web-ptbr-cohort-11",
   userAuthorization: "3fda8d28-174d-4647-9b4c-9acb9effd1bc",
@@ -47,11 +49,12 @@ const configCard = {
   cardsContainerSelector: ".gallery__cards",
   templateSelector: "#template-cards",
   cardSelector: ".gallery__card",
-  cardName: ".gallery__card-name",
-  cardImage: ".gallery__card-image",
-  likeButton: ".gallery__card-like-button",
+  cardNameSelector: ".gallery__card-name",
+  cardImageSelector: ".gallery__card-image",
+  likeButtonSelector: ".gallery__card-like-button",
   likeButtonActive: "gallery__card-like-button-active",
-  deleteButton: ".gallery__card-delete-button",
+  deleteButtonSelector: ".gallery__card-delete-button",
+  deleteButtonVisible: "gallery__card-delete-button-visible",
 };
 
 const configFormValidator = {
@@ -114,7 +117,6 @@ export {
   profileEditButton,
   galleryAddButton,
   pictureEditButton,
-  initialCards,
   configCard,
   configFormValidator,
   configPopups,
@@ -123,4 +125,5 @@ export {
   inputAbout,
   profilePicture,
   apiConfig,
+  userId,
 };
