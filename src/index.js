@@ -54,9 +54,40 @@ apiTripleTen
         renderer: (item) => {
           const newCard = new Card(item, {
             config: configCard,
-            // section: cardsSection,
             renderer: (item) => {
               viewerPopup.open(item);
+            },
+            liker: (id, path, executor) => {
+              apiTripleTen
+                .like(id, path)
+                .then((res) => {
+                  if (res.ok) {
+                    return res.json();
+                  }
+                  return Promise.reject(`Error: ${res.status}`);
+                })
+                .then((res) => {
+                  executor(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            },
+            disliker: (id, path, executor) => {
+              apiTripleTen
+                .dislike(id, path)
+                .then((res) => {
+                  if (res.ok) {
+                    return res.json();
+                  }
+                  return Promise.reject(`Error: ${res.status}`);
+                })
+                .then((res) => {
+                  executor(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
             },
             userId,
           });
@@ -105,17 +136,45 @@ const popupGalery = new PopupWithForm(configPopups.popupGalery, {
       .then((data) => {
         const newCard = new Card(data, {
           config: configCard,
-          // section: cardsSection,
           renderer: (item) => {
             viewerPopup.open(item);
+          },
+          liker: (id, path, executor) => {
+            apiTripleTen
+              .like(id, path)
+              .then((res) => {
+                if (res.ok) {
+                  return res.json();
+                }
+                return Promise.reject(`Error: ${res.status}`);
+              })
+              .then((res) => {
+                executor(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          },
+          disliker: (id, path, executor) => {
+            apiTripleTen
+              .dislike(id, path)
+              .then((res) => {
+                if (res.ok) {
+                  return res.json();
+                }
+                return Promise.reject(`Error: ${res.status}`);
+              })
+              .then((res) => {
+                executor(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           },
           userId,
         });
         const cardElement = newCard.generateCard();
         cardsSection.addItem(cardElement);
-
-        // const oldCards = cardsSection.getItems();
-        // oldCards.push(item);
       })
       .catch((err) => {
         console.log(err);

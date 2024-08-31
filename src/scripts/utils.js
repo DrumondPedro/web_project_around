@@ -55,6 +55,7 @@ const configCard = {
   likeButtonActive: "gallery__card-like-button-active",
   deleteButtonSelector: ".gallery__card-delete-button",
   deleteButtonVisible: "gallery__card-delete-button-visible",
+  likeCounterSelector: ".gallery__card-like-counter",
 };
 
 const configFormValidator = {

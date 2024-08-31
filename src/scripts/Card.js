@@ -1,17 +1,18 @@
 class Card {
   constructor(
     { name, link, likes, _id, owner },
-    { config, section, renderer, userId }
+    { config, section, renderer, liker, disliker, userId }
   ) {
     this._name = name;
     this._link = link;
+    this._cardId = _id;
+    this._ownerId = owner._id;
+    this._likes = likes;
     this._config = config;
     this._renderer = renderer;
-    this._likes = likes;
-    this._id = _id;
-    this._ownerId = owner._id;
+    this._liker = liker;
+    this._disliker = disliker;
     this._userId = userId;
-    // this._section = section;
   }
 
   _getTemplate() {
@@ -36,21 +37,44 @@ class Card {
     this._deleteButton = this._element.querySelector(
       this._config.deleteButtonSelector
     );
+    this._likeCounter = this._element.querySelector(
+      this._config.likeCounterSelector
+    );
+  }
+
+  _isLike() {
+    if (
+      this._likes.find((element) => {
+        return element._id === this._userId;
+      })
+    ) {
+      this._likeButton.classList.add(this._config.likeButtonActive);
+    }
   }
 
   _handleLikeButton(evt) {
-    evt.target.classList.toggle(this._config.likeButtonActive);
+    if (
+      this._likes.find((element) => {
+        return element._id === this._userId;
+      })
+    ) {
+      this._disliker(this._cardId, "/cards/likes", (res) => {
+        this._likeCounter.textContent = res.likes.length;
+        this._likes = res.likes;
+        evt.target.classList.remove(this._config.likeButtonActive);
+      });
+      return;
+    } else {
+      this._liker(this._cardId, "/cards/likes", (res) => {
+        this._likeCounter.textContent = res.likes.length;
+        this._likes = res.likes;
+        evt.target.classList.add(this._config.likeButtonActive);
+      });
+    }
   }
 
   _handleDeleteButton(evt) {
     evt.target.parentElement.remove();
-
-    // const oldCards = this._section.getItems();
-    // const newCards = oldCards.filter((item) => {
-    //   return item.name !== this._cardName.textContent;
-    // });
-    // this._section.setItems(newCards);
-    // console.log(this._section.getItems());
   }
 
   _handleOpenViewerPopup() {
@@ -81,6 +105,10 @@ class Card {
     if (this._ownerId === this._userId) {
       this._deleteButton.classList.add(this._config.deleteButtonVisible);
     }
+
+    this._isLike();
+
+    this._likeCounter.textContent = this._likes.length;
 
     // console.log(this);
     this._setEventListeners();
