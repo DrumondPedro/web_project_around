@@ -28,10 +28,28 @@ import {
   inputAbout,
   profilePicture,
   apiConfig,
-  userId,
 } from "./scripts/utils.js";
 
 const apiTripleTen = new Api(apiConfig);
+
+let userId;
+
+function updateUserId() {
+  apiTripleTen
+    .getUserInfo("/users/me")
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error ${res.status}`);
+    })
+    .then((data) => {
+      userId = data._id;
+    })
+    .catch((err) => console.log(err));
+}
+
+updateUserId();
 
 const viewerPopup = new PopupWithImage(configPopups.popupViewer);
 
