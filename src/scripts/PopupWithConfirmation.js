@@ -7,18 +7,15 @@ export default class PopupWithConfirmation extends Popup {
     this._confirmationButton = document.querySelector(
       config.confirmationButtonSelector
     );
+    this._buttonText = config.buttonText;
   }
 
-  // renderDeleting(isDeleting) {
-  //   if (isDeleting) {
-  //     this._confirmationButton.textContent = "Deletando...";
-  //   } else {
-  //     this._confirmationButton.textContent = this._buttonText;
-  //   }
-  // }
-
-  teste() {
-    console.log("testado");
+  renderDeleting(isDeleting) {
+    if (isDeleting) {
+      this._confirmationButton.textContent = "Deletando...";
+    } else {
+      this._confirmationButton.textContent = this._buttonText;
+    }
   }
 
   isDelete(callBack) {

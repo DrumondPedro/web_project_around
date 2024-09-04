@@ -115,7 +115,6 @@ class Card {
 
     this._likeCounter.textContent = this._likes.length;
 
-    // console.log(this);
     this._setEventListeners();
 
     return this._element;

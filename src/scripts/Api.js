@@ -5,7 +5,6 @@ export default class Api {
   }
 
   getInitialCards(path) {
-    // /cards
     return fetch(`${this._baseURL}${path}`, {
       method: "GET",
       headers: {
@@ -15,7 +14,6 @@ export default class Api {
   }
 
   addNewCard({ name: cardName, link: cardLink }, path) {
-    // /cards
     return fetch(`${this._baseURL}${path}`, {
       method: "POST",
       headers: {
@@ -30,7 +28,6 @@ export default class Api {
   }
 
   deleteCard(cardId, path) {
-    // /cards
     return fetch(`${this._baseURL}${path}/${cardId}`, {
       method: "DELETE",
       headers: {
@@ -40,7 +37,6 @@ export default class Api {
   }
 
   getUserInfo(path) {
-    // /users/me
     return fetch(`${this._baseURL}${path}`, {
       method: "GET",
       headers: {
@@ -50,7 +46,6 @@ export default class Api {
   }
 
   updateUserInfo({ person: userName, about: userAbout }, path) {
-    // /users/me
     return fetch(`${this._baseURL}${path}`, {
       method: "PATCH",
       headers: {
@@ -65,7 +60,6 @@ export default class Api {
   }
 
   updateUserAvatar({ picture }, path) {
-    // /users/me/avatar
     console.log(picture);
     return fetch(`${this._baseURL}${path}`, {
       method: "PATCH",
@@ -78,7 +72,6 @@ export default class Api {
   }
 
   like(cardId, path) {
-    // /cards/likes
     return fetch(`${this._baseURL}${path}/${cardId}`, {
       method: "PUT",
       headers: {
@@ -88,7 +81,6 @@ export default class Api {
   }
 
   dislike(cardId, path) {
-    // /cards/likes
     return fetch(`${this._baseURL}${path}/${cardId}`, {
       method: "DELETE",
       headers: {
