@@ -1,7 +1,7 @@
 class Card {
   constructor(
     { name, link, likes, _id, owner },
-    { config, section, renderer, liker, disliker, userId }
+    { config, renderer, liker, disliker, excluder, deletePopup, userId }
   ) {
     this._name = name;
     this._link = link;
@@ -12,6 +12,8 @@ class Card {
     this._renderer = renderer;
     this._liker = liker;
     this._disliker = disliker;
+    this._excluder = excluder;
+    this._deletePopup = deletePopup;
     this._userId = userId;
   }
 
@@ -73,8 +75,11 @@ class Card {
     }
   }
 
-  _handleDeleteButton(evt) {
-    evt.target.parentElement.remove();
+  _handleDeleteCard(evt) {
+    this._deletePopup(() => {
+      this._excluder(this._cardId);
+      evt.target.parentElement.remove();
+    });
   }
 
   _handleOpenViewerPopup() {
@@ -87,7 +92,7 @@ class Card {
     });
 
     this._deleteButton.addEventListener("click", (evt) => {
-      this._handleDeleteButton(evt);
+      this._handleDeleteCard(evt);
     });
 
     this._cardImage.addEventListener("click", () => {

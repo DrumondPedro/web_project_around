@@ -106,6 +106,7 @@ const configPopups = {
     openClass: "confirmer_visible",
     closeButtonSelector: ".confirmer__image-delete-close-button",
     confirmationButtonSelector: ".confirmer__confirmation-button",
+    buttonText: "Sim",
   },
 };
 

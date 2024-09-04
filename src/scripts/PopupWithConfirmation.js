@@ -3,22 +3,27 @@ import Popup from "./Popup";
 export default class PopupWithConfirmation extends Popup {
   constructor(config) {
     super(config);
+
     this._confirmationButton = document.querySelector(
       config.confirmationButtonSelector
     );
   }
 
-  // log() {
-  //   console.log(this);
+  // renderDeleting(isDeleting) {
+  //   if (isDeleting) {
+  //     this._confirmationButton.textContent = "Deletando...";
+  //   } else {
+  //     this._confirmationButton.textContent = this._buttonText;
+  //   }
   // }
 
-  setEventListeners() {
-    super.setEventListeners();
+  teste() {
+    console.log("testado");
+  }
 
-    this._confirmationButton.addEventListener("click", (evt) => {
-      // this._submitFunction(this._data);
-
-      this.close();
+  isDelete(callBack) {
+    this._confirmationButton.addEventListener("click", () => {
+      callBack();
     });
   }
 }

@@ -39,6 +39,41 @@ viewerPopup.setEventListeners();
 
 let cardsSection;
 
+const deleteCardConfirmationPopup = new PopupWithConfirmation(
+  configPopups.popupDeleteImage
+);
+
+deleteCardConfirmationPopup.setEventListeners();
+
+function deleteCard(cardId) {
+  console.log(`deletou o card: ${cardId}`);
+  deleteCardConfirmationPopup.close();
+  // // deleteCardConfirmationPopup.renderDeleting(true);
+  // apiTripleTen
+  //   .deleteCard(cardId, "/cards")
+  //   .then((res) => {
+  //     if (res.ok) {
+  //       return res.json();
+  //     }
+  //     return Promise.reject(`Error: ${res.status}`);
+  //   })
+  //   .then((data) => {
+  //     console.log(`deletou o cartão: ${data}`);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  //   .finally(() => {
+  //     // deleteCardConfirmationPopup.renderDeleting(false);
+  //     deleteCardConfirmationPopup.close();
+  //   });
+}
+
+function hendleOpenDeletePopup(call) {
+  deleteCardConfirmationPopup.open();
+  deleteCardConfirmationPopup.isDelete(call);
+}
+
 apiTripleTen
   .getInitialCards("/cards")
   .then((res) => {
@@ -89,6 +124,10 @@ apiTripleTen
                   console.log(err);
                 });
             },
+            excluder: deleteCard,
+            deletePopup: (back) => {
+              hendleOpenDeletePopup(back);
+            },
             userId,
           });
           const cardElement = newCard.generateCard();
@@ -102,25 +141,6 @@ apiTripleTen
   .catch((err) => {
     console.log(err);
   });
-
-// adiciona um card novo no servidor, e com a resposta de confirmação do servidor
-// renderiza o novo cartão
-
-// {
-//   createdAt: "2024-08-28T23:52:45.747Z",
-//   likes: [],
-//   link: "https://images.unsplash.com/photo-1517751243320-0cc45ec82da7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//   name: "Ilhas Faroés",
-//   owner: {
-//     about: "Web Dev",
-//     avatar:
-//       "https://images.unsplash.com/photo-1724075682633-4664473db52c?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//     cohort: "web-ptbr-cohort-11",
-//     name: "Pedro Drumond",
-//     _id: "57ad3ec977745486d8c3e581",
-//   },
-//   _id: "66cfb84ddde07005db2db385",
-// };
 
 const popupGalery = new PopupWithForm(configPopups.popupGalery, {
   submitFunction: (item) => {
@@ -274,12 +294,6 @@ popupPicture.setEventListeners();
 pictureEditButton.addEventListener("click", () => {
   popupPicture.open();
 });
-
-const deleteCardConfirmationPoup = new PopupWithConfirmation(
-  configPopups.popupDeleteImage
-);
-
-deleteCardConfirmationPoup.setEventListeners();
 
 new FormValidator(
   ".form_profile",
