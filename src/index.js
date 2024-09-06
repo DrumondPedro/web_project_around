@@ -212,6 +212,7 @@ const popupGalery = new PopupWithForm(configPopups.popupGalery, {
 popupGalery.setEventListeners();
 
 galleryAddButton.addEventListener("click", () => {
+  popupGaleryValidation.toggleButtonState();
   popupGalery.open();
 });
 
@@ -260,6 +261,8 @@ const popupProfile = new PopupWithForm(configPopups.popupProfile, {
 popupProfile.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
+  popupProfileValidation.toggleButtonState();
+
   const data = userInfo.getUserInfo();
 
   inputName.value = data.name;
@@ -295,23 +298,30 @@ const popupPicture = new PopupWithForm(configPopups.popupPicture, {
 popupPicture.setEventListeners();
 
 pictureEditButton.addEventListener("click", () => {
+  popupPictureValidation.toggleButtonState();
   popupPicture.open();
 });
 
-new FormValidator(
+const popupProfileValidation = new FormValidator(
   ".form_profile",
   configFormValidator,
   ".editor__profile-close-button"
-).enableValidation();
+);
 
-new FormValidator(
+popupProfileValidation.enableValidation();
+
+const popupGaleryValidation = new FormValidator(
   ".form_gallery",
   configFormValidator,
   ".editor__gallery-close-button"
-).enableValidation();
+);
 
-new FormValidator(
+popupGaleryValidation.enableValidation();
+
+const popupPictureValidation = new FormValidator(
   ".form_picture",
   configFormValidator,
   ".editor__picture-close-button"
-).enableValidation();
+);
+
+popupPictureValidation.enableValidation();

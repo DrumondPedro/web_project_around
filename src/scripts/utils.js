@@ -75,6 +75,7 @@ const configPopups = {
     inputSelector: ".form__input",
     submitButtonSelector: ".form__submit-button",
     buttonText: "Salvar",
+    inactiveButtonClass: "form__submit-button-inactive",
   },
   popupGalery: {
     popupSelector: ".editor_gallery",
@@ -84,6 +85,7 @@ const configPopups = {
     inputSelector: ".form__input",
     submitButtonSelector: ".form__submit-button",
     buttonText: "Criar",
+    inactiveButtonClass: "form__submit-button-inactive",
   },
   popupPicture: {
     popupSelector: ".editor_picture",
@@ -93,6 +95,7 @@ const configPopups = {
     inputSelector: ".form__input",
     submitButtonSelector: ".form__submit-button",
     buttonText: "Salvar",
+    inactiveButtonClass: "form__submit-button-inactive",
   },
   popupViewer: {
     popupSelector: ".viewer",

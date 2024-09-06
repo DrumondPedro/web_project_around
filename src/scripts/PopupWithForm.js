@@ -10,6 +10,7 @@ export default class PopupWithForm extends Popup {
       config.submitButtonSelector
     );
     this._buttonText = config.buttonText;
+    this._inactiveButtonClass = config.inactiveButtonClass;
   }
 
   _getInputValues() {
