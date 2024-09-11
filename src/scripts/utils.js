@@ -38,8 +38,6 @@ const initialCards = [
   },
 ];
 
-const userId = "57ad3ec977745486d8c3e581";
-
 const apiConfig = {
   baseURL: "https://around.nomoreparties.co/v1/web-ptbr-cohort-11",
   userAuthorization: "3fda8d28-174d-4647-9b4c-9acb9effd1bc",
@@ -130,5 +128,4 @@ export {
   inputAbout,
   profilePicture,
   apiConfig,
-  userId,
 };
