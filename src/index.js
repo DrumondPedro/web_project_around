@@ -216,16 +216,19 @@ galleryAddButton.addEventListener("click", () => {
   popupGalery.open();
 });
 
-const userInfo = new UserInfo(userInfoConfig);
-
-apiTripleTen
-  .getUserInfo("/users/me")
-  .then((res) => {
+const getUserApiData = () =>
+  apiTripleTen.getUserInfo("/users/me").then((res) => {
     if (res.ok) {
       return res.json();
     }
     return Promise.reject(`Error: ${res.status}`);
-  })
+  });
+
+const userInfo = new UserInfo(userInfoConfig, { handleUser: getUserApiData });
+
+userInfo.getUserInfo();
+
+getUserApiData()
   .then((data) => {
     userInfo.setUserInfo(data);
     profilePicture.setAttribute("src", `${data.avatar}`);
