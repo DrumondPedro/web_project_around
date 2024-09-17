@@ -78,11 +78,11 @@ function deleteCard(cardId) {
     })
     .then((data) => {
       console.log(`deletou o cartão: ${data}`);
+      deleteCardConfirmationPopup.renderDeleting(false);
+      deleteCardConfirmationPopup.close();
     })
     .catch((err) => {
       console.log(err);
-    })
-    .finally(() => {
       deleteCardConfirmationPopup.renderDeleting(false);
       deleteCardConfirmationPopup.close();
     });
@@ -211,11 +211,11 @@ const popupGalery = new PopupWithForm(configPopups.popupGalery, {
         });
         const cardElement = newCard.generateCard();
         cardsSection.addItem(cardElement);
+        popupGalery.renderSaving(false);
+        popupGalery.close();
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
         popupGalery.renderSaving(false);
         popupGalery.close();
       });
@@ -263,11 +263,11 @@ const popupProfile = new PopupWithForm(configPopups.popupProfile, {
       })
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupProfile.close();
+        popupProfile.renderSaving(false);
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
         popupProfile.close();
         popupProfile.renderSaving(false);
       });
@@ -300,11 +300,11 @@ const popupPicture = new PopupWithForm(configPopups.popupPicture, {
       })
       .then((data) => {
         profilePicture.setAttribute("src", `${data.avatar}`);
+        popupPicture.close();
+        popupPicture.renderSaving(false);
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
         popupPicture.close();
         popupPicture.renderSaving(false);
       });
