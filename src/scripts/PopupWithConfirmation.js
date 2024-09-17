@@ -19,8 +19,12 @@ export default class PopupWithConfirmation extends Popup {
   }
 
   isDelete(callBack) {
-    this._confirmationButton.addEventListener("click", () => {
-      callBack();
-    });
+    this.callBack = callBack;
+    this._confirmationButton.addEventListener("click", this.callBack);
+  }
+
+  close() {
+    this._confirmationButton.removeEventListener("click", this.callBack);
+    super.close();
   }
 }

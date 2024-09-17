@@ -76,7 +76,8 @@ class Card {
   }
 
   _handleDeleteCard(evt) {
-    this._deletePopup(() => {
+    this._deletePopup.open();
+    this._deletePopup.isDelete(() => {
       this._excluder(this._cardId);
       evt.target.parentElement.remove();
     });

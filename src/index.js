@@ -45,7 +45,6 @@ function updateUserId() {
     })
     .then((data) => {
       userId = data._id;
-      console.log(data);
     })
     .catch((err) => {
       console.log(err);
@@ -87,11 +86,6 @@ function deleteCard(cardId) {
       deleteCardConfirmationPopup.renderDeleting(false);
       deleteCardConfirmationPopup.close();
     });
-}
-
-function hendleOpenDeletePopup(call) {
-  deleteCardConfirmationPopup.open();
-  deleteCardConfirmationPopup.isDelete(call);
 }
 
 apiTripleTen
@@ -145,9 +139,7 @@ apiTripleTen
                 });
             },
             excluder: deleteCard,
-            deletePopup: (back) => {
-              hendleOpenDeletePopup(back);
-            },
+            deletePopup: deleteCardConfirmationPopup,
             userId,
           });
           const cardElement = newCard.generateCard();
