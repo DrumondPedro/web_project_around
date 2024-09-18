@@ -1,7 +1,15 @@
 class Card {
   constructor(
     { name, link, likes, _id, owner },
-    { config, renderer, liker, disliker, excluder, deletePopup, userId }
+    {
+      config,
+      renderer,
+      liker,
+      disliker,
+      excluder,
+      deleteConfirmationPopup,
+      userId,
+    }
   ) {
     this._name = name;
     this._link = link;
@@ -13,7 +21,7 @@ class Card {
     this._liker = liker;
     this._disliker = disliker;
     this._excluder = excluder;
-    this._deletePopup = deletePopup;
+    this._deleteConfirmationPopup = deleteConfirmationPopup;
     this._userId = userId;
   }
 
@@ -76,8 +84,8 @@ class Card {
   }
 
   _handleDeleteCard(evt) {
-    this._deletePopup.open();
-    this._deletePopup.isDelete(() => {
+    this._deleteConfirmationPopup.open();
+    this._deleteConfirmationPopup.isDelete(() => {
       this._excluder(this._cardId);
       evt.target.parentElement.remove();
     });

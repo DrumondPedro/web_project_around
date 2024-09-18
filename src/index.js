@@ -66,7 +66,6 @@ const deleteCardConfirmationPopup = new PopupWithConfirmation(
 deleteCardConfirmationPopup.setEventListeners();
 
 function deleteCard(cardId) {
-  console.log(`deletou o card: ${cardId}`);
   deleteCardConfirmationPopup.renderDeleting(true);
   apiTripleTen
     .deleteCard(cardId, "/cards")
@@ -76,8 +75,7 @@ function deleteCard(cardId) {
       }
       return Promise.reject(`Error: ${res.status}`);
     })
-    .then((data) => {
-      console.log(`deletou o cartão: ${data}`);
+    .then(() => {
       deleteCardConfirmationPopup.renderDeleting(false);
       deleteCardConfirmationPopup.close();
     })
@@ -86,6 +84,56 @@ function deleteCard(cardId) {
       deleteCardConfirmationPopup.renderDeleting(false);
       deleteCardConfirmationPopup.close();
     });
+}
+
+function handleWithCardLikes(id, path, executor) {
+  apiTripleTen
+    .like(id, path)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((res) => {
+      executor(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function handleWithCardDisikes(id, path, executor) {
+  apiTripleTen
+    .dislike(id, path)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((res) => {
+      executor(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function handleCardCreation(data) {
+  const newCard = new Card(data, {
+    config: configCard,
+    renderer: (item) => {
+      viewerPopup.open(item);
+    },
+    liker: handleWithCardLikes,
+    disliker: handleWithCardDisikes,
+    excluder: deleteCard,
+    deleteConfirmationPopup: deleteCardConfirmationPopup,
+    userId,
+  });
+  const cardElement = newCard.generateCard();
+  cardsSection.addItem(cardElement);
 }
 
 apiTripleTen
@@ -100,51 +148,7 @@ apiTripleTen
     cardsSection = new Section(
       {
         items: cards,
-        renderer: (item) => {
-          const newCard = new Card(item, {
-            config: configCard,
-            renderer: (item) => {
-              viewerPopup.open(item);
-            },
-            liker: (id, path, executor) => {
-              apiTripleTen
-                .like(id, path)
-                .then((res) => {
-                  if (res.ok) {
-                    return res.json();
-                  }
-                  return Promise.reject(`Error: ${res.status}`);
-                })
-                .then((res) => {
-                  executor(res);
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            },
-            disliker: (id, path, executor) => {
-              apiTripleTen
-                .dislike(id, path)
-                .then((res) => {
-                  if (res.ok) {
-                    return res.json();
-                  }
-                  return Promise.reject(`Error: ${res.status}`);
-                })
-                .then((res) => {
-                  executor(res);
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            },
-            excluder: deleteCard,
-            deletePopup: deleteCardConfirmationPopup,
-            userId,
-          });
-          const cardElement = newCard.generateCard();
-          cardsSection.addItem(cardElement);
-        },
+        renderer: handleCardCreation,
       },
       configCard.cardsContainerSelector
     );
@@ -166,51 +170,7 @@ const popupGalery = new PopupWithForm(configPopups.popupGalery, {
         return Promise.reject(`Error: ${res.status}`);
       })
       .then((data) => {
-        const newCard = new Card(data, {
-          config: configCard,
-          renderer: (item) => {
-            viewerPopup.open(item);
-          },
-          liker: (id, path, executor) => {
-            apiTripleTen
-              .like(id, path)
-              .then((res) => {
-                if (res.ok) {
-                  return res.json();
-                }
-                return Promise.reject(`Error: ${res.status}`);
-              })
-              .then((res) => {
-                executor(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          },
-          disliker: (id, path, executor) => {
-            apiTripleTen
-              .dislike(id, path)
-              .then((res) => {
-                if (res.ok) {
-                  return res.json();
-                }
-                return Promise.reject(`Error: ${res.status}`);
-              })
-              .then((res) => {
-                executor(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          },
-          excluder: deleteCard,
-          deletePopup: (back) => {
-            hendleOpenDeletePopup(back);
-          },
-          userId,
-        });
-        const cardElement = newCard.generateCard();
-        cardsSection.addItem(cardElement);
+        handleCardCreation(data);
         popupGalery.renderSaving(false);
         popupGalery.close();
       })
@@ -239,8 +199,6 @@ const getUserApiData = () =>
 
 const userInfo = new UserInfo(userInfoConfig, { handleUser: getUserApiData });
 
-userInfo.getUserInfo();
-
 getUserApiData()
   .then((data) => {
     userInfo.setUserInfo(data);
@@ -250,28 +208,30 @@ getUserApiData()
     console.log(err);
   });
 
+function handleProfileDataUpdate(item) {
+  popupProfile.renderSaving(true);
+  apiTripleTen
+    .updateUserInfo(item, "/users/me")
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      popupProfile.close();
+      popupProfile.renderSaving(false);
+    })
+    .catch((err) => {
+      console.log(err);
+      popupProfile.close();
+      popupProfile.renderSaving(false);
+    });
+}
+
 const popupProfile = new PopupWithForm(configPopups.popupProfile, {
-  submitFunction: (item) => {
-    popupProfile.renderSaving(true);
-    apiTripleTen
-      .updateUserInfo(item, "/users/me")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .then((data) => {
-        userInfo.setUserInfo(data);
-        popupProfile.close();
-        popupProfile.renderSaving(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        popupProfile.close();
-        popupProfile.renderSaving(false);
-      });
-  },
+  submitFunction: handleProfileDataUpdate,
 });
 
 popupProfile.setEventListeners();
@@ -287,28 +247,30 @@ profileEditButton.addEventListener("click", () => {
   popupProfile.open();
 });
 
+function handleProfilePictureUpdate(item) {
+  popupPicture.renderSaving(true);
+  apiTripleTen
+    .updateUserAvatar(item, "/users/me/avatar")
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {
+      profilePicture.setAttribute("src", `${data.avatar}`);
+      popupPicture.close();
+      popupPicture.renderSaving(false);
+    })
+    .catch((err) => {
+      console.log(err);
+      popupPicture.close();
+      popupPicture.renderSaving(false);
+    });
+}
+
 const popupPicture = new PopupWithForm(configPopups.popupPicture, {
-  submitFunction: (item) => {
-    popupPicture.renderSaving(true);
-    apiTripleTen
-      .updateUserAvatar(item, "/users/me/avatar")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .then((data) => {
-        profilePicture.setAttribute("src", `${data.avatar}`);
-        popupPicture.close();
-        popupPicture.renderSaving(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        popupPicture.close();
-        popupPicture.renderSaving(false);
-      });
-  },
+  submitFunction: handleProfilePictureUpdate,
 });
 
 popupPicture.setEventListeners();

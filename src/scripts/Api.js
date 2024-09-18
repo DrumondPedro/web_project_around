@@ -60,7 +60,6 @@ export default class Api {
   }
 
   updateUserAvatar({ picture }, path) {
-    console.log(picture);
     return fetch(`${this._baseURL}${path}`, {
       method: "PATCH",
       headers: {

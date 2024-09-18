@@ -21,9 +21,10 @@ class UserInfo {
     return this._userInfo;
   }
 
-  setUserInfo({ name, about }) {
-    this._name.textContent = name;
-    this._about.textContent = about;
+  setUserInfo(data) {
+    this._userInfo = data;
+    this._name.textContent = this._userInfo.name;
+    this._about.textContent = this._userInfo.about;
   }
 }
 
