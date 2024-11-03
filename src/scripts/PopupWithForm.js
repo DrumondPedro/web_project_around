@@ -46,8 +46,12 @@ export default class PopupWithForm extends Popup {
 
   renderSaving(isSaving) {
     if (isSaving) {
+      this._submitButton.setAttribute("disabled", true);
+      this._submitButton.classList.add(this._inactiveButtonClass);
       this._submitButton.textContent = "Salvando...";
     } else {
+      this._submitButton.removeAttribute("disabled");
+      this._submitButton.classList.remove(this._inactiveButtonClass);
       this._submitButton.textContent = this._buttonText;
     }
   }
